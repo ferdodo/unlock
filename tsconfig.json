@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"noEmit": true,
+		"allowJs": true,
+		"moduleResolution": "nodenext",
+		"skipLibCheck": true
+	}
+}

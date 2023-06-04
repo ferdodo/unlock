@@ -1,0 +1,9 @@
+<div style="display: grid; place-content:center">
+	<div class="playground" :style="`width: clamp(10rem, 60vw, 50rem); height: clamp(10rem, 60vw, 50rem); display: grid; grid-template-columns: repeat(${ puzzle.w }, 1fr); grid-template-rows: repeat(${ puzzle.h }, 1fr);`">
+		<template v-for="bit of puzzle.bits">
+			<bit :id="bit.id" @dragend="drag($event, bit)"></bit>
+		</template>
+
+		<latch @dragend="dragLatch($event, bit)"></latch>
+	</div>
+</div>
