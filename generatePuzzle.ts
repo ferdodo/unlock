@@ -4,6 +4,25 @@ import { boxCollides } from "./boxCollides";
 import { boxIncludes } from "./boxIncludes";
 import { generateId } from "./generateId";
 
+randomNumber(1, 5)
+randomNumber(1, 5)
+
+function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
+	const blocks = puzzle.bits.map(b => b.block);
+
+	for (const block of blocks) {
+		if (block.h > 2) {
+			if (block.y === 0) {
+				if (block.x > (puzzle.w -3)) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
 export function generatePuzzle(): Puzzle {
 	const puzzle: Puzzle = {
 		w: 6,
@@ -85,7 +104,11 @@ export function generatePuzzle(): Puzzle {
 		});
 	}
 
-	for	(let moves = 0; moves < 10000 || puzzle.latch.block.x !== 0; moves++) {
+	for	(let moves = 0; puzzle.latch.block.x !== 0 || !thereIsABigVerticalBlockInTheUpperRight(puzzle); moves++) {
+		if (moves > 5000) {
+			return generatePuzzle();
+		}
+		
 		const moveBit = randomNumber(0, 100) < 90;
 
 		if (moveBit) {
