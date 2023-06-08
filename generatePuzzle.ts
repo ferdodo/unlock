@@ -4,16 +4,13 @@ import { boxCollides } from "./boxCollides";
 import { boxIncludes } from "./boxIncludes";
 import { generateId } from "./generateId";
 
-randomNumber(1, 5)
-randomNumber(1, 5)
-
 function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
 	const blocks = puzzle.bits.map(b => b.block);
 
 	for (const block of blocks) {
 		if (block.h > 2) {
 			if (block.y === 0) {
-				if (block.x > (puzzle.w -3)) {
+				if (block.x > (puzzle.w -2)) {
 					return true;
 				}
 			}
@@ -21,6 +18,21 @@ function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
 	}
 
 	return false;
+}
+
+function thereIsLessThanHeightEmptySlots(puzzle: Puzzle): boolean {
+	const blocks: Block[] = puzzle.bits.map(b => b.block);
+	const totalSlots: number = puzzle.h * puzzle.w;
+	let occupiedSlots = 0;
+
+	for	(const block of blocks) {
+		occupiedSlots += block.h * block.w;
+	}
+
+	occupiedSlots += puzzle.latch.block.w * puzzle.latch.block.h;
+
+	const emptySlots = totalSlots - occupiedSlots;
+	return emptySlots < 6;
 }
 
 export function generatePuzzle(): Puzzle {
@@ -104,7 +116,7 @@ export function generatePuzzle(): Puzzle {
 		});
 	}
 
-	for	(let moves = 0; puzzle.latch.block.x !== 0 || !thereIsABigVerticalBlockInTheUpperRight(puzzle); moves++) {
+	for	(let moves = 0; puzzle.latch.block.x !== 0 || !thereIsABigVerticalBlockInTheUpperRight(puzzle) || !thereIsLessThanHeightEmptySlots(puzzle); moves++) {
 		if (moves > 5000) {
 			return generatePuzzle();
 		}

@@ -45,38 +45,6 @@ export interface Puzzle {
 export const moveBitEvents$: Subject<MoveBitEvent> = new Subject();
 export const moveLatchEvents$: Subject<MoveLatchEvent> = new Subject();
 
-let puzzle2: Puzzle = {
-	w: 7,
-	h: 7,
-	latch: {
-		block: {
-			x: 0,
-			y: 3,
-			w: 2,
-			h: 1
-		}
-	},
-	bits: [
-		/*{
-			id: generateId(),
-			block: {
-				x: 5,
-				y: 4,
-				h: 2,
-				w: 1
-			}
-		}, {
-			id: generateId(),
-			block: {
-				x: 3,
-				y: 4,
-				h: 2,
-				w: 1
-			}
-		}*/
-	]
-};
-
 let puzzle = generatePuzzle();
 
 export function getPuzzle(): Puzzle {
