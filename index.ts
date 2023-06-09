@@ -11,7 +11,7 @@ export const app = createApp({
 	setup() {
 		const win = ref(false);
 		puzzle$.subscribe(function(puzzle) {
-			if (puzzle.latch.block.x === puzzle.w - puzzle.latch.block.w) {
+			if (puzzle.latch.block.x === puzzle.block.w - puzzle.latch.block.w) {
 				win.value = true;
 			}
 		});

@@ -10,7 +10,7 @@ function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
 	for (const block of blocks) {
 		if (block.h > 2) {
 			if (block.y === 0) {
-				if (block.x > (puzzle.w -2)) {
+				if (block.x > (puzzle.block.w -2)) {
 					return true;
 				}
 			}
@@ -22,7 +22,7 @@ function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
 
 function thereIsLessThanHeightEmptySlots(puzzle: Puzzle): boolean {
 	const blocks: Block[] = puzzle.bits.map(b => b.block);
-	const totalSlots: number = puzzle.h * puzzle.w;
+	const totalSlots: number = puzzle.block.h * puzzle.block.w;
 	let occupiedSlots = 0;
 
 	for	(const block of blocks) {
@@ -37,75 +37,29 @@ function thereIsLessThanHeightEmptySlots(puzzle: Puzzle): boolean {
 
 export function generatePuzzle(): Puzzle {
 	const puzzle: Puzzle = {
-		w: 6,
-		h: 6,
+	    block: { x: 0, y: 0, w: 6, h: 6 },
 		latch: {
-			block: {
-				x: 0,
-				y: 2,
-				w: 2,
-				h: 1
-			}
+			block: { x: 0, y: 2, w: 2, h: 1 }
 		},
 		bits: []
 	};
 
-	const guideBlock: Block = {
-		x: 0,
-		y: 2,
-		w: 7,
-		h: 1
-	};
+	const guideBlock: Block = { x: 0, y: 2, w: puzzle.block.w, h: 1 };
 
 	for (let incorrectBlocks = 0; incorrectBlocks < 1000;) {
 		const block = generateBlock();
 
-		if (
-			puzzle.bits.some(function(b) {
-				return boxCollides(
-					b.block.x,
-					b.block.y,
-					b.block.w,
-					b.block.h,
-					block.x,
-					block.y,
-					block.w,
-					block.h
-				);
-			})
-		) {
+		if (puzzle.bits.some(b => boxCollides(b.block, block))) {
 			incorrectBlocks++;
 			continue;
 		}
 
-		if (
-			boxCollides(
-				block.x,
-				block.y,
-				block.w,
-				block.h,
-				guideBlock.x,
-				guideBlock.y,
-				guideBlock.w,
-				guideBlock.h
-			)
-		) {
+		if (boxCollides(block, guideBlock)) {
 			incorrectBlocks++;
 			continue;
 		}
 
-		if (
-			!boxIncludes(
-				0,
-				0,
-				puzzle.w,
-				puzzle.h,
-				block.x,
-				block.y,
-				block.w,
-				block.h
-			)
-		) {
+		if (!boxIncludes(puzzle.block, block)) {
 			incorrectBlocks++;
 			continue;
 		}
@@ -127,59 +81,33 @@ export function generatePuzzle(): Puzzle {
 			const bit: Bit = puzzle.bits[randomNumber(0, puzzle.bits.length)];
 			const moveDirection = randomNumber(0, 100) > 50;
 			const moveSign =  randomNumber(0, 100) > 50 ? 1 : -1;
-			const moveSignX =  randomNumber(0, 100) > ((bit.block.w > 2 || moves > 2000) ? 20: 80) ? 1 : -1;
+			const moveSignX =  randomNumber(0, 100) > ((bit.block.w > 2 || moves > 2000) ? 20: 80) ? 1 : -1;			
 
 			const moveBitEvent: MoveBitEvent = {
 				id: bit.id,
 				x: bit.block.x + (moveDirection ? moveSignX : 0),
 				y: bit.block.y + (moveDirection ? 0 : moveSign),
-			}
+			};
+
+			const movedBlock: Block = {
+				...bit.block,
+				x: bit.block.x + (moveDirection ? moveSignX : 0),
+				y: bit.block.y + (moveDirection ? 0 : moveSign)				
+			};
 	
-			if (
-				!boxIncludes(
-					0,
-					0,
-					puzzle.w,
-					puzzle.h,
-					moveBitEvent.x,
-					moveBitEvent.y,
-					bit.block.w,
-					bit.block.h
-				)
-			) {
+			if (!boxIncludes(puzzle.block, movedBlock)) {
 				continue;
 			}
 
 			if (
 				puzzle.bits.some(function(b) {
-					return b.id !== moveBitEvent.id
-						&& boxCollides(
-							b.block.x,
-							b.block.y,
-							b.block.w,
-							b.block.h,
-							moveBitEvent.x,
-							moveBitEvent.y,
-							bit.block.w,
-							bit.block.h
-						);
+					return b.id !== bit.id && boxCollides(b.block, movedBlock);
 				})
 			) {
 				continue;
 			}
 
-			if (
-				boxCollides(
-					puzzle.latch.block.x,
-					puzzle.latch.block.y,
-					puzzle.latch.block.w,
-					puzzle.latch.block.h,
-					moveBitEvent.x,
-					moveBitEvent.y,
-					bit.block.w,
-					bit.block.h
-				)
-			) {
+			if (boxCollides(puzzle.latch.block, movedBlock)) {
 				continue;	
 			}
 
@@ -204,35 +132,16 @@ export function generatePuzzle(): Puzzle {
 				x: puzzle.latch.block.x + (direction ? 1 : -1)
 			};
 
-			if (
-				puzzle.bits.some(function(b) {
-					return boxCollides(
-						b.block.x,
-						b.block.y,
-						b.block.w,
-						b.block.h,
-						moveLatchEvent.x,
-						puzzle.latch.block.y,
-						puzzle.latch.block.w,
-						puzzle.latch.block.h
-					);
-				})
-			) {
+			const movedBlock: Block = {
+				...puzzle.latch.block,
+				x: moveLatchEvent.x
+			};
+
+			if (puzzle.bits.some(b => boxCollides(b.block, movedBlock))) {
 				continue;
 			}
 
-			if (
-				!boxIncludes(
-					0,
-					0,
-					puzzle.w,
-					puzzle.h,
-					moveLatchEvent.x,
-					puzzle.latch.block.y,
-					puzzle.latch.block.w,
-					puzzle.latch.block.h
-				)
-			) {
+			if (!boxIncludes(puzzle.block, movedBlock)) {
 				continue;
 			}
 

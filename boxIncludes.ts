@@ -1,16 +1,8 @@
+import { Block } from "./puzzle";
 
-export function boxIncludes(
-	aX: number,
-	aY: number,
-	aW: number,
-	aH: number,
-	bX: number,
-	bY: number,
-	bW: number,
-	bH: number
-) {
-	return aX <= bX
-		&& aY <= bY
-		&& (aX + aW) >= (bX + bW)
-		&& (aY + aH) >= (bY + bH);
+export function boxIncludes(a: Block, b: Block) {
+	return a.x <= b.x
+		&& a.y <= b.y
+		&& (a.x + a.w) >= (b.x + b.w)
+		&& (a.y + a.h) >= (b.y + b.h);
 }

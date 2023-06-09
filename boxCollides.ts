@@ -1,16 +1,8 @@
+import { Block } from "./puzzle";
 
-export function boxCollides(
-	aX: number,
-	aY: number,
-	aW: number,
-	aH: number,
-	bX: number,
-	bY: number,
-	bW: number,
-	bH: number
-) {
-	return aX + aW> bX
-		&& aX < bX+ bW
-		&& aY + aH > bY
-		&& aY < bY + bH;
+export function boxCollides(a: Block, b: Block) {
+	return a.x + a.w> b.x
+		&& a.x < b.x+ b.w
+		&& a.y + a.h > b.y
+		&& a.y < b.y + b.h;
 }

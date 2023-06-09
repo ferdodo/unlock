@@ -38,8 +38,7 @@ export interface MoveLatchEvent {
 export interface Puzzle {
 	latch: Latch;
 	bits: Bit[];
-	w: number;
-	h: number;
+	block: Block;
 }
 
 export const moveBitEvents$: Subject<MoveBitEvent> = new Subject();
@@ -54,57 +53,33 @@ export function getPuzzle(): Puzzle {
 export const puzzle$: Observable<Puzzle> = new Observable(function(subscriber) {
 
 	moveBitEvents$.subscribe(function(moveBitEvent) {
-		if (puzzle.latch.block.x === puzzle.w - puzzle.latch.block.w) {
+		if (puzzle.latch.block.x === puzzle.block.w - puzzle.latch.block.w) {
 			return;
 		}
 	
 		const bit = getBit(moveBitEvent.id);
-	
+
+		const movedBlock: Block = {
+			...bit.block,
+			x: moveBitEvent.x,
+			y: moveBitEvent.y
+		};
+
 		if (
-			!boxIncludes(
-				0,
-				0,
-				puzzle.w,
-				puzzle.h,
-				moveBitEvent.x,
-				moveBitEvent.y,
-				bit.block.w,
-				bit.block.h
-			)
+			!boxIncludes(puzzle.block, movedBlock)
 		) {
 			return;
 		}
 
 		if (
 			puzzle.bits.some(function(b) {
-				return b.id !== moveBitEvent.id
-					&& boxCollides(
-						b.block.x,
-						b.block.y,
-						b.block.w,
-						b.block.h,
-						moveBitEvent.x,
-						moveBitEvent.y,
-						bit.block.w,
-						bit.block.h
-					);
+				return b.id !== moveBitEvent.id && boxCollides(b.block, movedBlock);
 			})
 		) {
 			return;
 		}
 
-		if (
-			boxCollides(
-				puzzle.latch.block.x,
-				puzzle.latch.block.y,
-				puzzle.latch.block.w,
-				puzzle.latch.block.h,
-				moveBitEvent.x,
-				moveBitEvent.y,
-				bit.block.w,
-				bit.block.h
-			)
-		) {
+		if (boxCollides(puzzle.latch.block, movedBlock)) {
 			return;	
 		}
 
@@ -131,39 +106,20 @@ export const puzzle$: Observable<Puzzle> = new Observable(function(subscriber) {
 	});
 
 	moveLatchEvents$.subscribe(function(moveLatchEvent) {
-		if (puzzle.latch.block.x === puzzle.w - puzzle.latch.block.w) {
-			return;
-		}
-	
-		if (
-			puzzle.bits.some(function(b) {
-				return boxCollides(
-					b.block.x,
-					b.block.y,
-					b.block.w,
-					b.block.h,
-					moveLatchEvent.x,
-					puzzle.latch.block.y,
-					puzzle.latch.block.w,
-					puzzle.latch.block.h
-				);
-			})
-		) {
+		if (puzzle.latch.block.x === puzzle.block.w - puzzle.latch.block.w) {
 			return;
 		}
 
-		if (
-			!boxIncludes(
-				0,
-				0,
-				puzzle.w,
-				puzzle.h,
-				moveLatchEvent.x,
-				puzzle.latch.block.y,
-				puzzle.latch.block.w,
-				puzzle.latch.block.h
-			)
-		) {
+		const movedBlock: Block = {
+			...puzzle.latch.block,
+			x: moveLatchEvent.x
+		}
+
+		if (puzzle.bits.some(b => boxCollides(b.block, movedBlock))) {
+			return;
+		}
+
+		if (!boxIncludes(puzzle.block, movedBlock)) {
 			return;
 		}
 
