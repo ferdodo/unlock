@@ -6,8 +6,27 @@ import { isBitMoveLegal } from "./isBitMoveLegal";
 import { isLatchMoveLegal } from "./isLatchMoveLegal";
 import { Puzzle, Bit } from "./puzzle";
 import { thereIsABigVerticalBlockInTheUpperRight } from "./thereIsABigVerticalBlockInTheUpperRight";
-import { thereIsLessThanSixEmptySlots } from "./thereIsLessThanSixEmptySlots";
+// import { thereIsABigVerticalBlockInTheBottom } from "./thereIsABigVerticalBlockInTheBottom";
+import { thereIsFewEmptySlots } from "./thereIsFewEmptySlots";
 import { generateBits } from "./generateBits";
+// import { thereIsAnHorizontalBlockUp } from "./thereIsAnHorizontalBlockUp";
+//import { thereAreTwoVerticalBlocks } from "./thereAreTwoVerticalBlocks";
+//import { guideBlockIsCollided } from "./guideBlockIsCollided";
+//import { thereIsABigHorizontalBarInTheBottomRight } from "./thereIsABigHorizontalBarInTheBottomRight";
+//import { thereIsABigVerticalBarInTheBottomLeft } from "./thereIsABigVerticalBarInTheBottomLeft";
+
+function puzzleIsGood(puzzle: Puzzle, bitMoved: Set<number>): boolean {
+	return puzzle.latch.block.x === 0
+		&& thereIsABigVerticalBlockInTheUpperRight(puzzle)
+		//&& thereIsABigHorizontalBarInTheBottomRight(puzzle)
+		&& thereIsFewEmptySlots(puzzle)
+		//&& thereIsABigVerticalBarInTheBottomLeft(puzzle)
+		&& bitMoved.size === puzzle.bits.length
+		//&& guideBlockIsCollided(puzzle)
+		//&& thereAreTwoVerticalBlocks(puzzle)
+		//&& thereIsABigVerticalBlockInTheBottom(puzzle)
+		//&& thereIsAnHorizontalBlockUp(puzzle);
+}
 
 export function generatePuzzle(): Puzzle {
 	const puzzle: Puzzle = {
@@ -19,8 +38,9 @@ export function generatePuzzle(): Puzzle {
 	};
 
 	puzzle.bits = generateBits(puzzle);
+	const bitMoved = new Set<number>();
 
-	for	(let moves = 0; puzzle.latch.block.x !== 0 || !thereIsABigVerticalBlockInTheUpperRight(puzzle) || !thereIsLessThanSixEmptySlots(puzzle); moves++) {
+	for	(let moves = 0; !puzzleIsGood(puzzle, bitMoved); moves++) {
 		if (moves > 5000) {
 			return generatePuzzle();
 		}
@@ -31,21 +51,22 @@ export function generatePuzzle(): Puzzle {
 			const bit: Bit = puzzle.bits[randomNumber(0, puzzle.bits.length)];
 			const moveDirection = randomNumber(0, 100) > 50;
 			const moveSign =  randomNumber(0, 100) > 50 ? 1 : -1;
-			const moveSignX =  randomNumber(0, 100) > ((bit.block.w > 2 || moves > 2000) ? 20: 80) ? 1 : -1;			
 
 			const moveBitEvent: MoveBitEvent = {
 				id: bit.id,
-				x: bit.block.x + (moveDirection ? moveSignX : 0),
+				x: bit.block.x + (moveDirection ? moveSign : 0),
 				y: bit.block.y + (moveDirection ? 0 : moveSign),
 			};
 
 			const movedBlock: Block = {
 				...bit.block,
-				x: bit.block.x + (moveDirection ? moveSignX : 0),
+				x: bit.block.x + (moveDirection ? moveSign : 0),
 				y: bit.block.y + (moveDirection ? 0 : moveSign)				
 			};
 
 			if (isBitMoveLegal(puzzle, bit.id, movedBlock)) {
+				bitMoved.add(bit.id);
+
 				puzzle.bits = puzzle.bits.map(function(b) {
 					const newBit = {
 						...bit,
