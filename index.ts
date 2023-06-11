@@ -1,7 +1,7 @@
-import { createApp, ref, Ref, onUnmounted/*, computed*/ } from "vue";
+import { createApp, ref, Ref } from "vue";
 import { render } from "./template";
 import { Playground } from "./components/playground";
-import { puzzle$, getPuzzle } from "./puzzle";
+import { puzzle$, puzzleUnresolved } from "./puzzle";
 import "cookies-ds";
 
 export const app = createApp({
@@ -9,9 +9,10 @@ export const app = createApp({
 		Playground
 	},
 	setup() {
-		const win = ref(false);
+		const win: Ref<boolean> = ref(false);
+
 		puzzle$.subscribe(function(puzzle) {
-			if (puzzle.latch.block.x === puzzle.block.w - puzzle.latch.block.w) {
+			if (!puzzleUnresolved(puzzle)) {
 				win.value = true;
 			}
 		});

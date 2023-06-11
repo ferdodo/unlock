@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { moveBitEvents$, MoveBitEvent } from "./moveBitEvent";
-import { Puzzle, getPuzzle, puzzle$, Bit, puzzleUnresolved, getBit } from "./puzzle";
+import { getPuzzle, puzzle$, Bit, puzzleUnresolved, getBit } from "./puzzle";
 import { isBitMoveLegal } from "./isBitMoveLegal";
 import { Block } from "./Block";
 

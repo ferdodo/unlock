@@ -1,9 +1,8 @@
 import { render } from "./template";
 import { ref, defineComponent } from "vue";
-import { getPuzzle, getBit, Bit, puzzle$ } from "../../puzzle";
+import { getPuzzle, puzzle$ } from "../../puzzle";
 
 export const LatchComponent = defineComponent({
-	props: {},
 	setup() {
 		const puzzle = getPuzzle();
 		const x = ref(puzzle.latch.block.x);

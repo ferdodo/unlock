@@ -1,6 +1,6 @@
 import { render } from "./template";
 import { ref, defineComponent } from "vue";
-import { getPuzzle, getBit, Bit, puzzle$ } from "../../puzzle";
+import { getBit, puzzle$ } from "../../puzzle";
 
 export const BitComponent = defineComponent({
 	props: {
@@ -18,7 +18,7 @@ export const BitComponent = defineComponent({
 		const xEnd = ref(bit.block.x + bit.block.w);
 		const yEnd = ref(bit.block.y + bit.block.h);
 		
-		puzzle$.subscribe(function(puzzle) {
+		puzzle$.subscribe(function() {
 			bit = getBit(id);
 			x.value = bit.block.x;
 			y.value = bit.block.y;

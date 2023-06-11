@@ -1,43 +1,13 @@
 import { randomNumber } from "./randomNumber";
-import { boxCollides } from "./boxCollides";
-import { boxIncludes } from "./boxIncludes";
-import { generateId } from "./generateId";
 import { Block } from "./Block";
 import { MoveBitEvent } from "./moveBitEvent";
 import { MoveLatchEvent } from "./moveLatchEvent";
 import { isBitMoveLegal } from "./isBitMoveLegal";
+import { isLatchMoveLegal } from "./isLatchMoveLegal";
 import { Puzzle, Bit } from "./puzzle";
-
-function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
-	const blocks = puzzle.bits.map(b => b.block);
-
-	for (const block of blocks) {
-		if (block.h > 2) {
-			if (block.y === 0) {
-				if (block.x > (puzzle.block.w -2)) {
-					return true;
-				}
-			}
-		}
-	}
-
-	return false;
-}
-
-function thereIsLessThanHeightEmptySlots(puzzle: Puzzle): boolean {
-	const blocks: Block[] = puzzle.bits.map(b => b.block);
-	const totalSlots: number = puzzle.block.h * puzzle.block.w;
-	let occupiedSlots = 0;
-
-	for	(const block of blocks) {
-		occupiedSlots += block.h * block.w;
-	}
-
-	occupiedSlots += puzzle.latch.block.w * puzzle.latch.block.h;
-
-	const emptySlots = totalSlots - occupiedSlots;
-	return emptySlots < 6;
-}
+import { thereIsABigVerticalBlockInTheUpperRight } from "./thereIsABigVerticalBlockInTheUpperRight";
+import { thereIsLessThanSixEmptySlots } from "./thereIsLessThanSixEmptySlots";
+import { generateBits } from "./generateBits";
 
 export function generatePuzzle(): Puzzle {
 	const puzzle: Puzzle = {
@@ -48,33 +18,9 @@ export function generatePuzzle(): Puzzle {
 		bits: []
 	};
 
-	const guideBlock: Block = { x: 0, y: 2, w: puzzle.block.w, h: 1 };
+	puzzle.bits = generateBits(puzzle);
 
-	for (let incorrectBlocks = 0; incorrectBlocks < 1000;) {
-		const block = generateBlock();
-
-		if (puzzle.bits.some(b => boxCollides(b.block, block))) {
-			incorrectBlocks++;
-			continue;
-		}
-
-		if (boxCollides(block, guideBlock)) {
-			incorrectBlocks++;
-			continue;
-		}
-
-		if (!boxIncludes(puzzle.block, block)) {
-			incorrectBlocks++;
-			continue;
-		}
-
-		puzzle.bits.push({
-			id: generateId(),
-			block
-		});
-	}
-
-	for	(let moves = 0; puzzle.latch.block.x !== 0 || !thereIsABigVerticalBlockInTheUpperRight(puzzle) || !thereIsLessThanHeightEmptySlots(puzzle); moves++) {
+	for	(let moves = 0; puzzle.latch.block.x !== 0 || !thereIsABigVerticalBlockInTheUpperRight(puzzle) || !thereIsLessThanSixEmptySlots(puzzle); moves++) {
 		if (moves > 5000) {
 			return generatePuzzle();
 		}
@@ -126,28 +72,11 @@ export function generatePuzzle(): Puzzle {
 				x: moveLatchEvent.x
 			};
 
-			if (puzzle.bits.some(b => boxCollides(b.block, movedBlock))) {
-				continue;
+			if (isLatchMoveLegal(puzzle, movedBlock)) {
+				puzzle.latch.block.x = moveLatchEvent.x;
 			}
-
-			if (!boxIncludes(puzzle.block, movedBlock)) {
-				continue;
-			}
-
-			puzzle.latch.block.x = moveLatchEvent.x;		
 		}
 	}
 
 	return puzzle;	
-}
-
-function generateBlock(): Block {
-	const direction = randomNumber(0, 100) > 50;
-
-	return {
-		x: randomNumber(0, 7),
-		y: randomNumber(0, 7),
-		w: direction ? randomNumber(2, 4): 1,
-		h: direction ? 1 : randomNumber(2, 4)
-	};
 }

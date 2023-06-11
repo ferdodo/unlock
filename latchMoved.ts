@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { MoveLatchEvent, moveLatchEvents$ } from "./moveLatchEvent";
-import { Latch, getPuzzle, Puzzle, puzzle$, puzzleUnresolved } from "./puzzle";
+import { Latch, getPuzzle, puzzle$, puzzleUnresolved } from "./puzzle";
 import { isLatchMoveLegal } from "./isLatchMoveLegal";
 import { Block } from "./Block";
 
