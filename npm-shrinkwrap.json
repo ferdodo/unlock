@@ -5,7 +5,7 @@
   "packages": {
     "": {
       "devDependencies": {
-        "cookies-ds": "^1.0.4",
+        "cookies-ds": "^1.0.5",
         "esbuild": "^0.17.19",
         "rxjs": "^7.8.1",
         "seedrandom": "^3.0.5",
@@ -624,9 +624,9 @@
       "dev": true
     },
     "node_modules/cookies-ds": {
-      "version": "1.0.4",
-      "resolved": "https://registry.npmjs.org/cookies-ds/-/cookies-ds-1.0.4.tgz",
-      "integrity": "sha512-b4RpNBC5f89DqE4lY1vAft6yri/xJJcqxReQH1hcKqsT643LYGKo2djq946ZEpjv7l2GoaEPdj1CUxgHA4IjIg==",
+      "version": "1.0.5",
+      "resolved": "https://registry.npmjs.org/cookies-ds/-/cookies-ds-1.0.5.tgz",
+      "integrity": "sha512-GqDjzIoYM0GFlqleBZCAU3UTYDv8NkKLkOTYuSI1QAd655c0fpT8PzhaHvf5hlsXBzA1YRp9j/3rR/8FZTld/A==",
       "dev": true,
       "hasShrinkwrap": true
     },
