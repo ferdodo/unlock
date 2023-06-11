@@ -1,22 +1,10 @@
-import { Observable, Subject, share } from "rxjs";
-import { generateId } from "./generateId";
-import { boxIncludes } from "./boxIncludes";
-import { boxCollides } from "./boxCollides";
+import { Observable, share } from "rxjs";
 import { generatePuzzle } from "./generatePuzzle";
+import { Block } from "./Block";
+import { bitMoved$ } from "./bitMoved";
+import { latchMoved$ } from "./latchMoved";
 
-export enum Direction {
-	Horizontal,
-	Vertical
-}
-
-export interface Block {
-	x: number;
-	y: number;
-	h: number;
-	w: number;
-}
-
-interface Latch {
+export interface Latch {
 	block: Block
 }
 
@@ -25,24 +13,11 @@ export interface Bit {
 	block: Block
 }
 
-export interface MoveBitEvent {
-	id: number;
-	x: number;
-	y: number;
-}
-
-export interface MoveLatchEvent {
-	x: number;
-}
-
 export interface Puzzle {
 	latch: Latch;
 	bits: Bit[];
 	block: Block;
 }
-
-export const moveBitEvents$: Subject<MoveBitEvent> = new Subject();
-export const moveLatchEvents$: Subject<MoveLatchEvent> = new Subject();
 
 let puzzle = generatePuzzle();
 
@@ -50,92 +25,21 @@ export function getPuzzle(): Puzzle {
 	return puzzle;
 }
 
+export function puzzleUnresolved(puzzle: Puzzle): boolean {
+	return puzzle.latch.block.x !== puzzle.block.w - puzzle.latch.block.w;
+}
+
 export const puzzle$: Observable<Puzzle> = new Observable(function(subscriber) {
-
-	moveBitEvents$.subscribe(function(moveBitEvent) {
-		if (puzzle.latch.block.x === puzzle.block.w - puzzle.latch.block.w) {
-			return;
-		}
-	
-		const bit = getBit(moveBitEvent.id);
-
-		const movedBlock: Block = {
-			...bit.block,
-			x: moveBitEvent.x,
-			y: moveBitEvent.y
-		};
-
-		if (
-			!boxIncludes(puzzle.block, movedBlock)
-		) {
-			return;
-		}
-
-		if (
-			puzzle.bits.some(function(b) {
-				return b.id !== moveBitEvent.id && boxCollides(b.block, movedBlock);
-			})
-		) {
-			return;
-		}
-
-		if (boxCollides(puzzle.latch.block, movedBlock)) {
-			return;	
-		}
-
-		puzzle = {
-			...puzzle,
-			bits: puzzle.bits.map(function(bit) {
-				if (bit.id === moveBitEvent.id) {
-					return {
-						...bit,
-						block: {
-							x: moveBitEvent.x,
-							y: moveBitEvent.y,
-							w: bit.block.w,
-							h: bit.block.h
-						}
-					}
-				}
-
-				return bit;
-			})
-		};
-	
+	bitMoved$.subscribe(function(movedBit: Bit) {
+		const bits = puzzle.bits.map(bit => (bit.id === movedBit.id) ? movedBit : bit);
+		puzzle = { ...puzzle, bits };
 		subscriber.next(puzzle);
 	});
 
-	moveLatchEvents$.subscribe(function(moveLatchEvent) {
-		if (puzzle.latch.block.x === puzzle.block.w - puzzle.latch.block.w) {
-			return;
-		}
-
-		const movedBlock: Block = {
-			...puzzle.latch.block,
-			x: moveLatchEvent.x
-		}
-
-		if (puzzle.bits.some(b => boxCollides(b.block, movedBlock))) {
-			return;
-		}
-
-		if (!boxIncludes(puzzle.block, movedBlock)) {
-			return;
-		}
-
-		puzzle = {
-			...puzzle,
-			latch: {
-				...puzzle.latch,
-				block: {
-					...puzzle.latch.block,
-					x: moveLatchEvent.x
-				}
-			}
-		};
-
+	latchMoved$.subscribe(function(movedLatch: Latch) {
+		puzzle = { ...puzzle, latch: movedLatch };
 		subscriber.next(puzzle);
-	})
+	});
 
 	subscriber.next(puzzle);
 }).pipe(share<Puzzle | unknown>()) as Observable<Puzzle>;

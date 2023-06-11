@@ -1,4 +1,4 @@
-import { Block } from "./puzzle";
+import { Block } from "./Block";
 
 export function boxCollides(a: Block, b: Block) {
 	return a.x + a.w> b.x

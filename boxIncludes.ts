@@ -1,4 +1,4 @@
-import { Block } from "./puzzle";
+import { Block } from "./Block";
 
 export function boxIncludes(a: Block, b: Block) {
 	return a.x <= b.x

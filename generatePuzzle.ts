@@ -1,8 +1,12 @@
 import { randomNumber } from "./randomNumber";
-import { Puzzle, Block, MoveBitEvent, MoveLatchEvent, Bit } from "./puzzle";
 import { boxCollides } from "./boxCollides";
 import { boxIncludes } from "./boxIncludes";
 import { generateId } from "./generateId";
+import { Block } from "./Block";
+import { MoveBitEvent } from "./moveBitEvent";
+import { MoveLatchEvent } from "./moveLatchEvent";
+import { isBitMoveLegal } from "./isBitMoveLegal";
+import { Puzzle, Bit } from "./puzzle";
 
 function thereIsABigVerticalBlockInTheUpperRight(puzzle: Puzzle): boolean {
 	const blocks = puzzle.bits.map(b => b.block);
@@ -94,37 +98,22 @@ export function generatePuzzle(): Puzzle {
 				x: bit.block.x + (moveDirection ? moveSignX : 0),
 				y: bit.block.y + (moveDirection ? 0 : moveSign)				
 			};
-	
-			if (!boxIncludes(puzzle.block, movedBlock)) {
-				continue;
+
+			if (isBitMoveLegal(puzzle, bit.id, movedBlock)) {
+				puzzle.bits = puzzle.bits.map(function(b) {
+					const newBit = {
+						...bit,
+						block: {
+							x: moveBitEvent.x,
+							y: moveBitEvent.y,
+							w: bit.block.w,
+							h: bit.block.h
+						}
+					};
+
+					return b.id === bit.id ? newBit : b;
+				});
 			}
-
-			if (
-				puzzle.bits.some(function(b) {
-					return b.id !== bit.id && boxCollides(b.block, movedBlock);
-				})
-			) {
-				continue;
-			}
-
-			if (boxCollides(puzzle.latch.block, movedBlock)) {
-				continue;	
-			}
-
-
-			puzzle.bits = puzzle.bits.map(function(b) {
-				const newBit = {
-					...bit,
-					block: {
-						x: moveBitEvent.x,
-						y: moveBitEvent.y,
-						w: bit.block.w,
-						h: bit.block.h
-					}
-				};
-
-				return b.id === bit.id ? newBit : b;
-			});
 		} else {
 			const direction = randomNumber(0, 100) < 50;
 

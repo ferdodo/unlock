@@ -3,18 +3,9 @@ import { render } from "./template";
 import { BitComponent } from "../bit";
 import { DragDirection, dragDirection } from "../../dragDirection";
 import { LatchComponent } from "../latch";
-
-import {
-	Bit,
-	puzzle$,
-	Puzzle,
-	getPuzzle,
-	MoveBitEvent,
-	moveBitEvents$,
-	MoveLatchEvent,
-	moveLatchEvents$
-} from "../../puzzle";
-
+import { MoveLatchEvent, moveLatchEvents$ } from "../../moveLatchEvent";
+import { MoveBitEvent, moveBitEvents$ } from "../../moveBitEvent";
+import { Bit, puzzle$, Puzzle, getPuzzle } from "../../puzzle";
 
 export const Playground = defineComponent({
 	components: {
