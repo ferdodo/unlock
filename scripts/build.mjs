@@ -31,28 +31,15 @@ async function buildVueTemplates() {
 
 async function buildFrontend() {
 	await runTask("Bundle frontend", $`
-		npx --no-install esbuild --bundle index.ts \
+		npx --no-install esbuild --bundle src/index.ts \
 			--define:__VUE_OPTIONS_API__=false \
 			--define:__VUE_PROD_DEVTOOLS__=false \
 			--target=chrome80 \
-			--outfile=public/bundle.js \
+			--outfile=dist/bundle.js \
 			--minify \
 			--tree-shaking=true \
 			--sourcemap
 	`);
-}
-
-async function test() {
-	await runTask("Bundle test", $`
-		npx --no-install esbuild --bundle test.ts \
-			--platform=node \
-			--outfile=test.js \
-			--minify \
-			--tree-shaking=true \
-			--sourcemap
-	`);
-
-	await runTask("Test", $`node --enable-source-maps test.js`);
 }
 
 async function checkFrontendTypings() {
@@ -64,5 +51,4 @@ await buildVueTemplates();
 await Promise.all([
 	buildFrontend(),
 	checkFrontendTypings(),
-	// test()
 ]);
