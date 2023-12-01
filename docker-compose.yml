@@ -5,4 +5,7 @@ services:
       - "4477:80"
 
   wasm:
-    build: wasm
+    build:
+      context: wasm
+      tags:
+        - "unlock-wasm"
