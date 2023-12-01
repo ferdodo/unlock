@@ -1,5 +1,5 @@
 FROM node
-WORKDIR /unlock
+WORKDIR /unlock/frontend
 COPY package.json .
 COPY npm-shrinkwrap.json .
 RUN npm install
@@ -8,5 +8,5 @@ COPY . .
 RUN npm run build
 
 FROM nginx
-COPY --from=0 /unlock/public /usr/share/nginx/html
-COPY --from=0 /unlock/dist /usr/share/nginx/html
+COPY --from=0 /unlock/frontend/public /usr/share/nginx/html
+COPY --from=0 /unlock/frontend/dist /usr/share/nginx/html
