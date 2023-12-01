@@ -1,6 +1,7 @@
 FROM rust
 RUN cargo install wasm-pack
 WORKDIR /tmp
+RUN echo v2
 RUN git clone https://github.com/ferdodo/unlock-puzzle-generator
 WORKDIR /unlock/wasm
 RUN cp -r /tmp/unlock-puzzle-generator/* .

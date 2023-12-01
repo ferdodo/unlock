@@ -9,16 +9,35 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Setup Rust
+        uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: current
 
-      - name: Install and Build 🔧
+      - name: Clone unlock-puzzle-generator
+        run: |
+          git clone https://github.com/ferdodo/unlock-puzzle-generator
+          mv unlock-puzzle-generator wasm
+
+      - name: Build Wasm ⚙️
+        working-directory: wasm
+        run: |
+          cargo build
+          RUN cargo test
+          RUN wasm-pack build --target web
+
+      - name: Build Frontend 🔧
+        working-directory: ./frontend
         run: |
           npm install
           npm run build
           cp public/* dist
+          cp ../wasm/pkg/unlock_puzzle_generator_bg.wasm dist
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
