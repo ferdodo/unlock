@@ -22,14 +22,16 @@ jobs:
       - name: Clone unlock-puzzle-generator
         run: |
           git clone https://github.com/ferdodo/unlock-puzzle-generator
+          rm -rf wasm
           mv unlock-puzzle-generator wasm
 
       - name: Build Wasm ⚙️
         working-directory: ./wasm
         run: |
+          cargo install wasm-pack
           cargo build
-          RUN cargo test
-          RUN wasm-pack build --target web
+          cargo test
+          wasm-pack build --target web
 
       - name: Build Frontend 🔧
         working-directory: ./frontend
