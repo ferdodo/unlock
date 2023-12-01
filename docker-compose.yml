@@ -3,3 +3,6 @@ services:
     build: frontend
     ports:
       - "4477:80"
+
+  wasm:
+    build: wasm
