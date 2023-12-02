@@ -3,7 +3,7 @@ import { render } from "./template";
 import { Playground } from "./components/playground";
 import { puzzle$, puzzleUnresolved } from "./puzzle";
 import { getMoveCount } from "./moveCount";
-import "cookies-ds";
+import { enqueueSnackbar } from "cookies-ds";
 
 const app = createApp({
 	components: {
@@ -17,6 +17,22 @@ const app = createApp({
 				win.value = true;
 			}
 		});
+
+		if (
+			new Date().toJSON().slice(0,10) === '2023-12-02'
+			|| new Date().toJSON().slice(0,10) === '2023-12-03'
+			|| new Date().toJSON().slice(0,10) === '2023-12-04'
+			|| new Date().toJSON().slice(0,10) === '2023-12-05'
+		) {
+			setTimeout(function() {
+				enqueueSnackbar({ message: "Maintenance temporaire" });
+				enqueueSnackbar({ message: "le puzzle peux changer plusieurs fois par jour" });
+				enqueueSnackbar({ message: "Le chargement de la page sera plus rapide :)" });
+				enqueueSnackbar({ message: "La difficulte augmente un peu" });
+				enqueueSnackbar({ message: "Il peut y avoir des dysfonctionnements imprevus xD" });
+				enqueueSnackbar({ message: "Merci ❤️" });
+			});
+		}
 
 		function share() {
 			const date = new Date();

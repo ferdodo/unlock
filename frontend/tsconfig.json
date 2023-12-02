@@ -3,7 +3,8 @@
 		"strict": true,
 		"noEmit": true,
 		"allowJs": true,
-		"moduleResolution": "nodenext",
+		"module": "esnext",
+		"moduleResolution": "bundler",
 		"skipLibCheck": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true
