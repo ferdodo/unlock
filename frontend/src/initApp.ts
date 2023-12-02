@@ -26,7 +26,7 @@ const app = createApp({
 		) {
 			setTimeout(function() {
 				enqueueSnackbar({ message: "Maintenance temporaire" });
-				enqueueSnackbar({ message: "le puzzle peux changer plusieurs fois par jour" });
+				enqueueSnackbar({ message: "le puzzle peut changer plusieurs fois par jour" });
 				enqueueSnackbar({ message: "Le chargement de la page sera plus rapide :)" });
 				enqueueSnackbar({ message: "La difficulte augmente un peu" });
 				enqueueSnackbar({ message: "Il peut y avoir des dysfonctionnements imprevus xD" });
