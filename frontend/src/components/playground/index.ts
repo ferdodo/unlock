@@ -5,8 +5,9 @@ import { DragDirection, dragDirection } from "../../dragDirection";
 import { LatchComponent } from "../latch";
 import { moveLatchEvents$ } from "../../moveLatchEvent";
 import { moveBitEvents$ } from "../../moveBitEvent";
-import { puzzle$, Puzzle, getPuzzle } from "../../puzzle";
+import { Puzzle } from "unlock/puzzle";
 import { Bit } from "../../bit";
+import { currentPuzzle$, getCurrentPuzzle } from "unlock/current-puzzle";
 
 export const Playground = defineComponent({
 	components: {
@@ -14,8 +15,8 @@ export const Playground = defineComponent({
 		Latch: LatchComponent
 	},
 	setup() {
-		const puzzle: Ref<Puzzle> = ref(getPuzzle());
-		puzzle$.subscribe(p => puzzle.value = p);
+		const puzzle: Ref<Puzzle> = ref(getCurrentPuzzle());
+		currentPuzzle$.subscribe(p => puzzle.value = p);
 
 		function drag(event: DragEvent, bit: Bit) {
 			const direction: DragDirection | undefined = dragDirection(event);

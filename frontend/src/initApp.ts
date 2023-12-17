@@ -1,9 +1,10 @@
 import { createApp, ref, Ref } from "vue";
 import { render } from "./template";
 import { Playground } from "./components/playground";
-import { puzzle$, puzzleUnresolved } from "./puzzle";
+import { puzzleUnresolved } from "./puzzle";
 import { getMoveCount } from "unlock/move-count";
 import { enqueueSnackbar } from "cookies-ds";
+import { currentPuzzle$ } from "unlock/current-puzzle";
 
 const app = createApp({
 	components: {
@@ -12,7 +13,7 @@ const app = createApp({
 	setup() {
 		const win: Ref<boolean> = ref(false);
 
-		puzzle$.subscribe(function(puzzle) {
+		currentPuzzle$.subscribe(function(puzzle) {
 			if (!puzzleUnresolved(puzzle)) {
 				win.value = true;
 			}
