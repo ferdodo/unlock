@@ -2,10 +2,7 @@ import { Observable, share } from "rxjs";
 import { generatePuzzle } from "./generatePuzzle";
 import { Block } from "./Block";
 import { Bit } from "unlock/bit";
-
-export interface Latch {
-	block: Block
-}
+import { Latch } from "unlock/latch";
 
 export interface Puzzle {
 	latch: Latch;
