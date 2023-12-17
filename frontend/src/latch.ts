@@ -1,4 +1,4 @@
-import { Block } from "unlock/Block";
+import { Block } from "blockwise";
 
 export interface Latch {
 	block: Block

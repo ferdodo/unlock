@@ -1,4 +1,4 @@
-import { Block } from "./Block";
+import { Block } from "blockwise";
 
 export interface Bit {
 	id: number;

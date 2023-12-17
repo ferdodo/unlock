@@ -3,6 +3,7 @@
     "build": "zx ./scripts/build.mjs"
   },
   "devDependencies": {
+    "blockwise": "^2.0.0",
     "cookies-ds": "^1.2.0",
     "esbuild": "^0.17.19",
     "rxjs": "^7.8.1",
@@ -11,8 +12,8 @@
     "typescript": "^5.1.3",
     "vue": "^3.3.4",
     "vue-compiler-dom-cli": "^0.2.1",
+    "wasm": "file:../wasm",
     "zx": "^7.2.2",
-    "zx-run-task": "^1.0.2",
-    "wasm": "file:../wasm"
+    "zx-run-task": "^1.0.2"
   }
 }

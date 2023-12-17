@@ -5,6 +5,7 @@
   "packages": {
     "": {
       "devDependencies": {
+        "blockwise": "^2.0.0",
         "cookies-ds": "^1.2.0",
         "esbuild": "^0.17.19",
         "rxjs": "^7.8.1",
@@ -13,9 +14,13 @@
         "typescript": "^5.1.3",
         "vue": "^3.3.4",
         "vue-compiler-dom-cli": "^0.2.1",
+        "wasm": "file:../wasm",
         "zx": "^7.2.2",
         "zx-run-task": "^1.0.2"
       }
+    },
+    "../wasm": {
+      "dev": true
     },
     "node_modules/@babel/parser": {
       "version": "7.22.4",
@@ -582,6 +587,13 @@
       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",
       "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",
       "dev": true
+    },
+    "node_modules/blockwise": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/blockwise/-/blockwise-2.0.0.tgz",
+      "integrity": "sha512-6rrKS6RzSP1WHrYiBX1kwM4Az4C8R17Uy04OgqkB7fSz4+NEBkWFECk5XlfAlsd7NGYX4MGbpYstQjk7RI5VTQ==",
+      "dev": true,
+      "hasShrinkwrap": true
     },
     "node_modules/brace-expansion": {
       "version": "1.1.11",
@@ -1941,6 +1953,10 @@
       "engines": {
         "node": ">=12"
       }
+    },
+    "node_modules/wasm": {
+      "resolved": "../wasm",
+      "link": true
     },
     "node_modules/web-streams-polyfill": {
       "version": "3.2.1",

@@ -1,14 +1,12 @@
-import { Block } from "./Block";
+import { Block, isBlockIncluding, isBlockColliding } from "blockwise";
 import { Puzzle } from "./puzzle";
-import { boxIncludes } from "./boxIncludes";
-import { boxCollides } from "./boxCollides";
 
 export function isLatchMoveLegal(puzzle: Puzzle, movedBlock: Block): boolean {
-	if (puzzle.bits.some(b => boxCollides(b.block, movedBlock))) {
+	if (puzzle.bits.some(b => isBlockColliding(b.block, movedBlock))) {
 		return false;
 	}
 
-	if (!boxIncludes(puzzle.block, movedBlock)) {
+	if (!isBlockIncluding(puzzle.block, movedBlock)) {
 		return false;
 	}
 

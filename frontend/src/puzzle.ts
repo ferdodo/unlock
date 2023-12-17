@@ -1,4 +1,4 @@
-import { Block } from "./Block";
+import { Block } from "blockwise";
 import { Bit } from "unlock/bit";
 import { Latch } from "unlock/latch";
 
