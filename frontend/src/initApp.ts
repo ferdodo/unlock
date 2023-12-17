@@ -2,7 +2,7 @@ import { createApp, ref, Ref } from "vue";
 import { render } from "./template";
 import { Playground } from "./components/playground";
 import { puzzle$, puzzleUnresolved } from "./puzzle";
-import { getMoveCount } from "./moveCount";
+import { getMoveCount } from "unlock/move-count";
 import { enqueueSnackbar } from "cookies-ds";
 
 const app = createApp({

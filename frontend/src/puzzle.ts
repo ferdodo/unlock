@@ -3,7 +3,7 @@ import { generatePuzzle } from "./generatePuzzle";
 import { Block } from "./Block";
 import { bitMoved$ } from "./bitMoved";
 import { latchMoved$ } from "./latchMoved";
-import { incrementMoveCount } from "./moveCount";
+import { incrementMoveCount } from "unlock/move-count";
 import { Bit } from "unlock/bit";
 
 export interface Latch {
