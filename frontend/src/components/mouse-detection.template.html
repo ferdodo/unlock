@@ -1,6 +1,7 @@
 <div
     @click="clickMouseDetectionComponent"
     @mouseover="hoverMouseDetectionComponent"
+    @mouseup="mouseUpDetectionComponent"
     @contextmenu.prevent="rightClickDetectionComponent"
     :style="`grid-area: ${y}/${x}/${y+1}/${x+1}`">
 </div>
