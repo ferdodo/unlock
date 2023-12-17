@@ -5,7 +5,8 @@ import { DragDirection, dragDirection } from "../../dragDirection";
 import { LatchComponent } from "../latch";
 import { moveLatchEvents$ } from "../../moveLatchEvent";
 import { moveBitEvents$ } from "../../moveBitEvent";
-import { Bit, puzzle$, Puzzle, getPuzzle } from "../../puzzle";
+import { puzzle$, Puzzle, getPuzzle } from "../../puzzle";
+import { Bit } from "../../bit";
 
 export const Playground = defineComponent({
 	components: {

@@ -4,13 +4,9 @@ import { Block } from "./Block";
 import { bitMoved$ } from "./bitMoved";
 import { latchMoved$ } from "./latchMoved";
 import { incrementMoveCount } from "./moveCount";
+import { Bit } from "./bit";
 
 export interface Latch {
-	block: Block
-}
-
-export interface Bit {
-	id: number;
 	block: Block
 }
 
