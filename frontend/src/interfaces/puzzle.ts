@@ -6,4 +6,5 @@ export interface Puzzle {
 	latch: Latch;
 	bits: Bit[];
 	block: Block;
+	candidate?: Bit;
 }
