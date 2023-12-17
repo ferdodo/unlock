@@ -1,12 +1,12 @@
 import { createApp, ref, Ref } from "vue";
-import { render } from "./template";
+import { render } from "unlock/app.template";
 import { Playground } from "./components/playground";
-import { puzzleUnresolved } from "./puzzle";
-import { getMoveCount } from "unlock/move-count";
+import { puzzleUnresolved } from "unlock/interfaces/puzzle";
+import { getMoveCount } from "unlock/observables/move-count";
 import { enqueueSnackbar } from "cookies-ds";
-import { currentPuzzle$ } from "unlock/current-puzzle";
+import { currentPuzzle$ } from "unlock/observables/current-puzzle";
 
-const app = createApp({
+export const app = createApp({
 	components: {
 		Playground
 	},
@@ -58,5 +58,3 @@ const app = createApp({
 	},
 	render
 });
-
-app.mount("body");

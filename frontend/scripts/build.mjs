@@ -31,7 +31,7 @@ async function buildVueTemplates() {
 
 async function buildFrontend() {
 	await runTask("Bundle frontend", $`
-		npx --no-install esbuild --bundle src/index.ts \
+		npx --no-install esbuild --bundle src/main.ts \
 			--define:__VUE_OPTIONS_API__=false \
 			--define:__VUE_PROD_DEVTOOLS__=false \
 			--target=chrome80 \

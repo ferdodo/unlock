@@ -1,6 +1,6 @@
 import { Observable, Subject } from "rxjs";
-import { Puzzle } from "unlock/puzzle";
-import { generatePuzzle } from "unlock/generate-puzzle";
+import { Puzzle } from "unlock/interfaces/puzzle";
+import { generatePuzzle } from "unlock/utils/generate-puzzle";
 
 let currentPuzzle = generatePuzzle();
 

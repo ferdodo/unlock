@@ -1,6 +1,6 @@
-import { Bit } from "unlock/bit";
-import { Puzzle } from "unlock/puzzle";
-import { getCurrentPuzzle } from "unlock/current-puzzle";
+import { Bit } from "unlock/interfaces/bit";
+import { Puzzle } from "unlock/interfaces/puzzle";
+import { getCurrentPuzzle } from "unlock/observables/current-puzzle";
 
 export function getBit(id: number): Bit {
 	const puzzle: Puzzle = getCurrentPuzzle();

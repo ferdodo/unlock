@@ -1,4 +1,4 @@
-import { Puzzle } from "./puzzle";
+import { Puzzle } from "unlock/interfaces/puzzle";
 import { generate_puzzle_json } from "wasm/pkg/unlock_puzzle_generator";
 
 export function generatePuzzle(): Puzzle {

@@ -1,6 +1,6 @@
-import { render } from "./template";
+import { render } from "unlock/components/latch.template";
 import { ref, defineComponent } from "vue";
-import { currentPuzzle$, getCurrentPuzzle } from "unlock/current-puzzle";
+import { currentPuzzle$, getCurrentPuzzle } from "unlock/observables/current-puzzle";
 
 export const LatchComponent = defineComponent({
 	setup() {
