@@ -1,6 +1,6 @@
 import { render } from "./template";
 import { ref, defineComponent } from "vue";
-import { getBit } from "../../puzzle";
+import { getBit } from "unlock/get-bit";
 import { currentPuzzle$ } from "unlock/current-puzzle";
 
 export const BitComponent = defineComponent({
