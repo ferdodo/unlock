@@ -4,7 +4,7 @@ import { Block } from "./Block";
 import { bitMoved$ } from "./bitMoved";
 import { latchMoved$ } from "./latchMoved";
 import { incrementMoveCount } from "./moveCount";
-import { Bit } from "./bit";
+import { Bit } from "unlock/bit";
 
 export interface Latch {
 	block: Block
