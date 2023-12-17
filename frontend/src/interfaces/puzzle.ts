@@ -7,7 +7,3 @@ export interface Puzzle {
 	bits: Bit[];
 	block: Block;
 }
-
-export function puzzleUnresolved(puzzle: Puzzle): boolean {
-	return puzzle.latch.block.x !== puzzle.block.w - puzzle.latch.block.w;
-}

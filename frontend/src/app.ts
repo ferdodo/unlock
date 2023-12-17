@@ -1,10 +1,10 @@
 import { createApp, ref, Ref } from "vue";
 import { render } from "unlock/app.template";
 import { Playground } from "./components/playground";
-import { puzzleUnresolved } from "unlock/interfaces/puzzle";
-import { getMoveCount } from "unlock/observables/move-count";
-import { enqueueSnackbar } from "cookies-ds";
-import { currentPuzzle$ } from "unlock/observables/current-puzzle";
+import { win$ } from "unlock/observables/win";
+import { share } from "unlock/utils/share";
+import { disclaim } from "unlock/utils/disclaim";
+import "cookies-ds";
 
 export const app = createApp({
 	components: {
@@ -12,49 +12,9 @@ export const app = createApp({
 	},
 	setup() {
 		const win: Ref<boolean> = ref(false);
-
-		currentPuzzle$.subscribe(function(puzzle) {
-			if (!puzzleUnresolved(puzzle)) {
-				win.value = true;
-			}
-		});
-
-		if (
-			new Date().toJSON().slice(0,10) === '2023-12-02'
-			|| new Date().toJSON().slice(0,10) === '2023-12-03'
-			|| new Date().toJSON().slice(0,10) === '2023-12-04'
-			|| new Date().toJSON().slice(0,10) === '2023-12-05'
-		) {
-			setTimeout(function() {
-				enqueueSnackbar({ message: "Maintenance temporaire" });
-				enqueueSnackbar({ message: "le puzzle peut temporairement changer plusieurs fois par jour" });
-				enqueueSnackbar({ message: "Le chargement de la page sera plus rapide :)" });
-				enqueueSnackbar({ message: "La difficulte augmente un peu" });
-				enqueueSnackbar({ message: "Il peut y avoir des dysfonctionnements imprevus xD" });
-				enqueueSnackbar({ message: "Merci ❤️" });
-			});
-		}
-
-		function share() {
-			const date = new Date();
-			const year = date.getFullYear();
-			const month = ('0' + (date.getMonth() + 1)).slice(-2);
-			const day = ('0' + date.getDate()).slice(-2);
-			const formattedDate = `${year}/${month}/${day}`;
-			let text = `Unlock ${formattedDate}`;
-			const moveCount = getMoveCount();
-
-			text += `\n\nPuzzle réussi en ${ moveCount } mouvements.`
-
-			text += `\n\nhttps://ferdodo.github.io/unlock`;
-			navigator.clipboard.writeText(text);
-		}
-
-	
-		return { 
-			win,
-			share
-		};
+		win$.subscribe(value => win.value = value);
+		disclaim();
+		return { win, share };
 	},
 	render
 });
