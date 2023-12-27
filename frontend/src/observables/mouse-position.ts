@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { Block } from 'blockwise';
 
-let position: Block = { x: 0, y: 0, w: 0, h: 0 };
+let position: Block = { x: 0, y: 0, w: 1, h: 1 };
 const _mousePosition = new Subject<Block>();
 export const mousePosition$ = _mousePosition.asObservable();
 

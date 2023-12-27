@@ -5,11 +5,13 @@ import { LatchComponent } from "unlock/components/latch";
 import { Puzzle } from "unlock/interfaces/puzzle";
 import { currentPuzzle$, getCurrentPuzzle } from "unlock/observables/current-puzzle";
 import { MouseDetectionComponent } from "unlock/components/mouse-detection";
+import { CandidateComponent } from "unlock/components/candidate";
 
 export const Playground = defineComponent({
 	components: {
 		Bit: BitComponent,
 		Latch: LatchComponent,
+		Candidate: CandidateComponent,
 		MouseDetectionComponent
 	},
 	setup() {

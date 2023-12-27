@@ -6,6 +6,10 @@
 
 		<latch></latch>
 
+		<template v-if="puzzle.candidate">
+			<candidate></candidate>
+		</template>
+
 		<template v-for="x in puzzle.block.w">
 			<template v-for="y in puzzle.block.h">
 				<mouse-detection-component :x="x" :y="y" style="z-index: 2;"></mouse-detection-component>
