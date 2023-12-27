@@ -4,11 +4,13 @@ import { generatePuzzle } from "unlock/utils/generate-puzzle";
 import { mouseClicks$ } from "unlock/observables/mouse-clicks";
 import { findBitByPosition } from "unlock/utils/find-bit-by-position";
 import { Block, isBlockPositionEqual } from "blockwise";
-//import { mousePosition$ } from "unlock/observables/mouse-position";
 import { Bit } from "unlock/interfaces/bit";
 import { isBitMoveLegal } from "unlock/utils/is-bit-move-legal";
 import { mouseUps$ } from "unlock/observables/mouse-ups";
 import { mouseMove$ } from "unlock/observables/mouse-move";
+import { isBlockIncluding } from "blockwise";
+import { isLatchMoveLegal } from "unlock/utils/is-latch-move-legal";
+import { incrementMoveCount } from "unlock/observables/move-count";
 
 let currentPuzzle = generatePuzzle();
 
@@ -33,43 +35,18 @@ mouseClicks$.subscribe(function(position: Block) {
 	}
 });
 
-/*mousePosition$.subscribe(function(position: Block) {
-	return;
-	if (currentPuzzle.candidate === undefined) {
-		return;
-	}
+mouseClicks$.subscribe(function(position: Block) {
+	const clickingLatch = isBlockIncluding(currentPuzzle.latch.block, position);
 
-	const candidate: Bit = currentPuzzle.candidate;
-
-	const newCandidate: Bit = {
-		...candidate,
-		block: {
-			...candidate.block,
-			x: position.x,
-			y: position.y
-		}
-	};
-
-	const bitMoveLegal = isBitMoveLegal(currentPuzzle, newCandidate);
-	const initialBit = currentPuzzle.bits.find(b => b.id === candidate.id);
-
-	if (initialBit === undefined) {
-		return;
-	}
-	
-	const samePosition = isBlockPositionEqual(candidate.block, newCandidate.block);
-
-	if (bitMoveLegal && !samePosition) {
-	
+	if (clickingLatch) {
 		currentPuzzle = {
 			...currentPuzzle,
-			candidate: newCandidate
+			latchIsMoved: true
 		};
 
 		_currentPuzzle$.next(currentPuzzle);
 	}
-});*/
-
+});
 
 mouseUps$.subscribe(function() {
 	if (currentPuzzle.candidate === undefined) {
@@ -96,6 +73,16 @@ mouseUps$.subscribe(function() {
 	}
 });
 
+mouseUps$.subscribe(function() {
+	if (currentPuzzle.latchIsMoved) {
+		currentPuzzle = {
+			...currentPuzzle,
+			latchIsMoved: false
+		};
+
+		_currentPuzzle$.next(currentPuzzle);
+	}
+});
 
 mouseMove$.subscribe(function(position: Block) {
 	if (currentPuzzle.candidate === undefined) {
@@ -130,5 +117,34 @@ mouseMove$.subscribe(function(position: Block) {
 		};
 
 		_currentPuzzle$.next(currentPuzzle);
+		incrementMoveCount();
+	}
+})
+
+
+mouseMove$.subscribe(function(position: Block) {
+	if (!currentPuzzle.latchIsMoved) {
+		return;
+	}
+
+	const newLatchBlock: Block = {
+		...currentPuzzle.latch.block,
+		x: currentPuzzle.latch.block.x + position.x,
+		y: currentPuzzle.latch.block.y + position.y
+	};
+
+	const latchMoveLegal = isLatchMoveLegal(currentPuzzle, newLatchBlock);
+
+	if (latchMoveLegal) {
+		currentPuzzle = {
+			...currentPuzzle,
+			latch: {
+				...currentPuzzle.latch,
+				block: newLatchBlock
+			}
+		};
+
+		_currentPuzzle$.next(currentPuzzle);
+		incrementMoveCount();
 	}
 })
