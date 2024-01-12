@@ -6,6 +6,12 @@ export function isLatchMoveLegal(puzzle: Puzzle, movedBlock: Block): boolean {
 		return false;
 	}
 
+	const guideBlock = { x: 0, y: 2, h: 1, w: puzzle.block.w };
+
+	if (!isBlockIncluding(guideBlock, movedBlock)) {
+		return false;
+	}
+
 	if (!isBlockIncluding(puzzle.block, movedBlock)) {
 		return false;
 	}
