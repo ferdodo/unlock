@@ -1,6 +1,6 @@
-<div style="display: grid; place-content:center">
-	<div class="playground" :style="`display: grid; grid-template-columns: repeat(${ puzzle.block.w }, 1fr); grid-template-rows: repeat(${ puzzle.block.h }, 1fr);`">
-		<template v-for="bit of puzzle.bits">
+<div style="display: grid; place-content:center;">
+	<div class="playground" :style="`grid-area: 1 / 1 / 2 / 2; display: grid; grid-template-columns: repeat(${ puzzle.block.w }, 1fr); grid-template-rows: repeat(${ puzzle.block.h }, 1fr);`">
+		<!--<template v-for="bit of puzzle.bits">
 			<bit :id="bit.id"></bit>
 		</template>
 
@@ -8,7 +8,7 @@
 
 		<template v-if="puzzle.candidate">
 			<candidate></candidate>
-		</template>
+		</template>-->
 
 		<template v-for="x in puzzle.block.w">
 			<template v-for="y in puzzle.block.h">
@@ -16,4 +16,5 @@
 			</template>
 		</template>
 	</div>
+	<playground-svg-view style="grid-area: 1 / 1 / 2 / 2;"/>
 </div>

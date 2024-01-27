@@ -6,13 +6,15 @@ import { Puzzle } from "unlock/interfaces/puzzle";
 import { currentPuzzle$, getCurrentPuzzle } from "unlock/observables/current-puzzle";
 import { MouseDetectionComponent } from "unlock/components/mouse-detection";
 import { CandidateComponent } from "unlock/components/candidate";
+import { PlaygroundSvgView } from "unlock/components/playground-svg-view";
 
 export const Playground = defineComponent({
 	components: {
 		Bit: BitComponent,
 		Latch: LatchComponent,
 		Candidate: CandidateComponent,
-		MouseDetectionComponent
+		MouseDetectionComponent,
+		PlaygroundSvgView
 	},
 	setup() {
 		const puzzle: Ref<Puzzle> = ref(getCurrentPuzzle());

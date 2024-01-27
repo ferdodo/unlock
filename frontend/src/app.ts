@@ -8,7 +8,7 @@ import "cookies-ds";
 
 export const app = createApp({
 	components: {
-		Playground
+		Playground,
 	},
 	setup() {
 		const win: Ref<boolean> = ref(false);

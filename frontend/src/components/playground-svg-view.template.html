@@ -1,0 +1,41 @@
+<svg :viewBox="`0 0 ${puzzle.block.w} ${puzzle.block.h}`">
+	<rect
+		x="0"
+		y="0"
+		:height="puzzle.block.h"
+		:width="puzzle.block.w"
+		fill="transparent"
+		stroke="black"
+		stroke-width="0.1"/>
+
+	<template v-for="bit in puzzle.bits">
+		<template v-if="bit.id !== puzzle.candidate?.id">
+			<image
+				:x="bit.block.x"
+				:y="bit.block.y"
+				:height="bit.block.h"
+				:width="bit.block.w"
+		        :xlink:href="getBitImage(bit)"
+		        style="image-rendering: pixelated;"/>
+		</template>
+	</template>
+
+	<template v-if="puzzle.candidate">
+		<image
+			:x="puzzle.candidate.block.x"
+			:y="puzzle.candidate.block.y"
+			:height="puzzle.candidate.block.h"
+			:width="puzzle.candidate.block.w"
+			:xlink:href="getBitImage(puzzle.candidate)"
+	        style="image-rendering: pixelated;"/>
+	</template>
+
+
+	<image
+		:x="puzzle.latch.block.x"
+		:y="puzzle.latch.block.y"
+		:height="puzzle.latch.block.h"
+		:width="puzzle.latch.block.w"
+        xlink:href="latch.png"
+        style="image-rendering: pixelated;"/>
+</svg>
