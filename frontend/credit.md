@@ -8,5 +8,3 @@ We have used the "Four Seasons Platformer Tileset" by analogStudios_ in our proj
 - Link: https://analogstudios.itch.io/four-seasons-platformer-tileset
 
 Thank you to analogStudios_ for providing this amazing asset!
-
-Follow analogStudios_ on Instagram, Twitter, and Pinterest @analogstudios_
