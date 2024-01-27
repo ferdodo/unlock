@@ -1,5 +1,5 @@
 <div style="display: grid; place-content:center">
-	<div class="playground" :style="`width: clamp(10rem, 60vw, 50rem); height: clamp(10rem, 60vw, 50rem); display: grid; grid-template-columns: repeat(${ puzzle.block.w }, 1fr); grid-template-rows: repeat(${ puzzle.block.h }, 1fr);`">
+	<div class="playground" :style="`display: grid; grid-template-columns: repeat(${ puzzle.block.w }, 1fr); grid-template-rows: repeat(${ puzzle.block.h }, 1fr);`">
 		<template v-for="bit of puzzle.bits">
 			<bit :id="bit.id"></bit>
 		</template>
