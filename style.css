@@ -1,5 +1,8 @@
 body {
 	background-color: darkgoldenrod;
+	background-image: url("bg.png");
+	background-size: 59rem;
+	image-rendering: pixelated;
 }
 
 div {
@@ -43,4 +46,13 @@ div {
 
 .playground {
 	background: linear-gradient(0deg, rgb(107, 70, 7) 0%, rgb(210, 143, 33) 52%, rgb(94, 63, 17) 54%, rgb(87, 58, 14) 62%, rgb(201, 133, 23) 64%, rgb(102, 64, 3) 100%);
+	width: clamp(15rem, 60vw, 35rem);
+	height: clamp(15rem, 60vw, 35rem); 
+}
+
+.app-container {
+	min-width: 22rem;
+	max-width: 45rem;
+	margin-left: auto;
+	margin-right: auto;
 }
