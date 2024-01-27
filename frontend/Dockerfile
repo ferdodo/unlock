@@ -15,8 +15,4 @@ COPY --from=1 /unlock/wasm /unlock/wasm
 WORKDIR /unlock/frontend
 COPY . .
 RUN npm run build
-
-FROM nginx
-COPY --from=2 /unlock/wasm/pkg/unlock_puzzle_generator_bg.wasm /usr/share/nginx/html
-COPY --from=2 /unlock/frontend/public /usr/share/nginx/html
-COPY --from=2 /unlock/frontend/dist /usr/share/nginx/html
+CMD npm run start

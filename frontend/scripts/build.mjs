@@ -24,9 +24,11 @@ async function buildVueTemplates() {
 		`);
 	}
 
-	for (const template of templates) {
-		await buildTemplates(template, outfile(template));
-	}
+	await Promise.all(
+		templates.map(function(template) {
+			return buildTemplates(template, outfile(template));
+		})
+	);
 }
 
 async function buildFrontend() {
@@ -42,13 +44,19 @@ async function buildFrontend() {
 	`);
 }
 
+
 async function checkFrontendTypings() {
 	await runTask("Checking frontend typings", $`npx tsc`);
 }
 
 await buildVueTemplates();
 
+mkdir('-p', 'dist');
+cp('-R', 'public/*', 'dist');
+cp('../wasm/pkg/unlock_puzzle_generator_bg.wasm', 'dist');
+
 await Promise.all([
 	buildFrontend(),
 	checkFrontendTypings(),
 ]);
+
