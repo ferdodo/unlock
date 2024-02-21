@@ -2,10 +2,16 @@ services:
   frontend:
     build: frontend
     ports:
-      - "4477:5173"
+      - "127.0.0.1:4477:5173"
 
-  wasm:
+  puzzle-generator:
     build:
-      context: wasm
+      context: puzzle-generator
       tags:
-        - "unlock-wasm"
+        - "unlock-puzzle-generator"
+
+  svg-to-png:
+    build:
+      context: svg-to-png
+      tags:
+        - "unlock-svg-to-png"

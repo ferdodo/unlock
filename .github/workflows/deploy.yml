@@ -19,14 +19,8 @@ jobs:
         with:
           node-version: current
 
-      - name: Clone unlock-puzzle-generator
-        run: |
-          git clone https://github.com/ferdodo/unlock-puzzle-generator
-          rm -rf wasm
-          mv unlock-puzzle-generator wasm
-
       - name: Build Wasm ⚙️
-        working-directory: ./wasm
+        working-directory: ./puzzle-generator
         run: |
           cargo install wasm-pack
           cargo build
