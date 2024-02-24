@@ -3,25 +3,21 @@ use resvg::usvg::TreeParsing;
 use resvg::usvg::Transform;
 use super::pixmap_to_png_string::pixmap_to_png_string;
 use super::create_pixmap::create_pixmap;
+use super::pre_process_svg::pre_process_svg;
 
-pub fn render_pixmap(hello: &str) -> String {
+pub fn render_pixmap(svg_string: &str) -> String {
     let mut pixmap = create_pixmap();
 
-	let tree = match usvg::Tree::from_str(hello, &usvg::Options::default()) {
+	let preprocessed_svg = pre_process_svg(svg_string, 96, 96);
+
+	let mut tree = match usvg::Tree::from_str(preprocessed_svg.as_str(), &usvg::Options::default()) {
 		Ok(t) => t,
 		Err(err) => panic!("Failed to parse SVG tree !\n ${:?}", err)
 	};
 
-    let translation = Transform {
-        sx: 0.0,
-        kx: 0.0,
-        ky: 0.0,
-        sy: 0.0,
-        tx: 0.0,
-        ty: 0.0,
-    };
+	tree.calculate_bounding_boxes();
 
-    resvg::render(&tree, translation, &mut pixmap.as_mut());
+    resvg::render(&tree, Transform::default(), &mut pixmap.as_mut());
     let hex_string = pixmap_to_png_string(pixmap);
     hex_string
 }
@@ -32,7 +28,7 @@ mod tests {
 
     #[test]
     fn test_render_pixmap() {
-        let svg = r#"<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="red" /></svg>"#;
+        let svg = r#"<svg xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="red" /></svg>"#;
         let result = render_pixmap(svg);
         assert!(!result.is_empty());
     }
@@ -40,7 +36,7 @@ mod tests {
     #[test]
     fn test_render_pixmap2() {
         let svg = r#"
-        	<svg width="100" height="100" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        	<svg viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         		<rect width="100" height="100" fill="transparent" stroke="black" stroke-width="0.1">
 			    <image id="image1" height="200" xlink:href="bit-h-2.png"/>
         			<!--v-if-->
