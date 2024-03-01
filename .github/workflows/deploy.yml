@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: current
 
-      - name: Build Wasm ⚙️
+      - name: 📏 Build puzzle-generator
         working-directory: ./puzzle-generator
         run: |
           cargo install wasm-pack
@@ -27,13 +27,29 @@ jobs:
           cargo test
           wasm-pack build --target web
 
-      - name: Build Frontend 🔧
+      - name: 🎨 svg-to-png
+        working-directory: ./svg-to-png
+        run: |
+          cargo install wasm-pack
+          cargo build
+          cargo test
+          wasm-pack build --target web
+
+      - name: 🎥 pngs-to-gif
+        working-directory: ./pngs-to-gif
+        run: |
+          cargo install wasm-pack
+          cargo build
+          cargo test
+          wasm-pack build --target web
+
+      - name: 🔧 Build Frontend 
         working-directory: ./frontend
         run: |
           npm install
           npm run build
 
-      - name: Deploy 🚀
+      - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: frontend/dist
