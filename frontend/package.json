@@ -5,19 +5,20 @@
   },
   "devDependencies": {
     "blockwise": "^2.0.0",
-    "cookies-ds": "^1.2.0",
+    "cookies-ds": "^1.4.0",
     "esbuild": "^0.17.19",
     "loglore": "^1.0.1",
+    "pngs-to-gif": "file:../pngs-to-gif",
+    "puzzle-generator": "file:../puzzle-generator",
     "rxjs": "^7.8.1",
     "seedrandom": "^3.0.5",
     "shelljs": "^0.8.5",
+    "svg-to-png": "file:../svg-to-png",
     "typescript": "^5.1.3",
     "uid": "^2.0.2",
     "vite": "^5.0.12",
     "vue": "^3.3.4",
     "vue-compiler-dom-cli": "^0.2.1",
-    "puzzle-generator": "file:../puzzle-generator",
-    "svg-to-png": "file:../svg-to-png",
     "zx": "^7.2.2",
     "zx-run-task": "^1.0.2"
   }

@@ -15,3 +15,9 @@ services:
       context: svg-to-png
       tags:
         - "unlock-svg-to-png"
+
+  pngs-to-gif:
+    build:
+      context: pngs-to-gif
+      tags:
+        - "pngs-to-gif"

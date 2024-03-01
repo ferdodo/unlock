@@ -2,6 +2,7 @@ mod bit_v_2;
 mod bit_v_3;
 mod bit_h_2;
 mod bit_h_3;
+mod latch;
 mod create_pixmap;
 mod create_buffer;
 mod render_pixmap;

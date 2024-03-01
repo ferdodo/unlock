@@ -1,7 +1,8 @@
-import { currentPuzzle$ } from "unlock/observables/current-puzzle";
+import { currentPuzzleSmooth$ } from "unlock/observables/current-puzzle-smooth";
 import { Puzzle } from "unlock/interfaces/puzzle";
 import { saveEvent, replayEvents } from "loglore";
 import { uid } from "uid";
+import { throttleTime } from "rxjs";
 
 const id: string = uid();
 
@@ -10,9 +11,13 @@ interface PuzzleReplayEvent {
 	puzzle: Puzzle;
 }
 
-currentPuzzle$.subscribe(function(puzzle) {
-	saveEvent({ id, puzzle });
-});
+currentPuzzleSmooth$
+	.pipe(
+		throttleTime(100)
+	)
+	.subscribe(function(puzzle) {
+		saveEvent({ id, puzzle });
+	});
 
 export async function * replayPuzzle(): AsyncGenerator<Puzzle> {
 	for await (const event of replayEvents<PuzzleReplayEvent>()) {

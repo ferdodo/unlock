@@ -14,22 +14,18 @@ export const mouseMove$: Observable<Block> = mousePosition$.pipe(
 	filter(function(move) {
 		switch(move.x) {
 			case -1:
-			case 0:
 			case 1:
-				break;
+				return move.y === 0;
+			case 0:
+				switch(move.y) {
+					case -1:
+					case 1:
+						return true;
+					default:
+						return false;
+				}
 			default:
 				return false;
 		}
-
-		switch(move.y) {
-			case -1:
-			case 0:
-			case 1:
-				break;
-			default:
-				return false;
-		}
-
-		return true;
 	})
 );

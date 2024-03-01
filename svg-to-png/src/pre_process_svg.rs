@@ -2,6 +2,7 @@ use super::bit_v_3::bit_v_3;
 use super::bit_v_2::bit_v_2;
 use super::bit_h_3::bit_h_3;
 use super::bit_h_2::bit_h_2;
+use super::latch::latch;
 
 pub fn pre_process_svg(svg_string: &str, width: i32, height: i32) -> String {
     let width_str = format!("{}", width);
@@ -12,6 +13,7 @@ pub fn pre_process_svg(svg_string: &str, width: i32, height: i32) -> String {
     let replaced_svg = replaced_svg.replace("bit-v-2.png", &format!("data:image/png;base64,{}", bit_v_2()));
     let replaced_svg = replaced_svg.replace("bit-h-3.png", &format!("data:image/png;base64,{}", bit_h_3()));
     let replaced_svg = replaced_svg.replace("bit-h-2.png", &format!("data:image/png;base64,{}", bit_h_2()));
+    let replaced_svg = replaced_svg.replace("latch.png", &format!("data:image/png;base64,{}", latch()));
     return replaced_svg;
 }
 

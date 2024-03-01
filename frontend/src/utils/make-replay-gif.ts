@@ -2,8 +2,9 @@ import { PlaygroundSvgReplay } from "unlock/components/playground-svg-replay";
 import { convertSvgToPng } from "unlock/utils/convert-svg-to-png";
 import { replayPuzzle } from "unlock/stores/puzzle-replay";
 import { createApp, h } from "vue";
+import { convert_hexstrings_to_animated_gif } from "pngs-to-gif/pkg/pngs_to_gif";
 
-export async function makeReplayGif() : Promise<void> {
+export async function makeReplayGif() : Promise<string> {
 	const svgs: string[] = []; 
 
 	for await (const puzzle of replayPuzzle()) {
@@ -26,14 +27,7 @@ export async function makeReplayGif() : Promise<void> {
 		target.remove();
 	}
 
-
-	for (const svg of svgs) {
-		if (svg) {
-			const id = Math.random();
-			console.time(`png-${ id }`);
-			const png = convertSvgToPng(svg);
-			console.timeEnd(`png-${ id }`);
-			console.log({ png });
-		}		
-	}
+	return convert_hexstrings_to_animated_gif(
+		svgs.map(convertSvgToPng)
+	);
 }

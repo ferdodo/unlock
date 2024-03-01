@@ -4,21 +4,18 @@ import { Playground } from "./components/playground";
 import { win$ } from "unlock/observables/win";
 import { share } from "unlock/utils/share";
 import { disclaim } from "unlock/utils/disclaim";
-import { makeReplayGif } from "unlock/utils/make-replay-gif";
+import { replayGifURL$ } from "unlock/observables/replay-gif-url";
 import "cookies-ds";
 
-//@ts-ignore
-globalThis.makeReplayGif = makeReplayGif;
-
 export const app = createApp({
-	components: {
-		Playground,
-	},
+	components: { Playground },
 	setup() {
 		const win: Ref<boolean> = ref(false);
+		const gifUrl: Ref<string> = ref("");
 		win$.subscribe(value => win.value = value);
+		replayGifURL$.subscribe(value => gifUrl.value = value);
 		disclaim();
-		return { win, share };
+		return { win, share, gifUrl };
 	},
 	render
 });

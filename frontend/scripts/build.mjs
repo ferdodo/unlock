@@ -55,6 +55,7 @@ mkdir('-p', 'dist');
 cp('-R', 'public/*', 'dist');
 cp('../puzzle-generator/pkg/unlock_puzzle_generator_bg.wasm', 'dist');
 cp('../svg-to-png/pkg/svg_to_png_bg.wasm', 'dist');
+cp('../pngs-to-gif/pkg/pngs_to_gif_bg.wasm', 'dist');
 
 await Promise.all([
 	buildFrontend(),
