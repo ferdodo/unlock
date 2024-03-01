@@ -47,7 +47,7 @@ div {
 .playground {
 	background: linear-gradient(0deg, rgb(107, 70, 7) 0%, rgb(210, 143, 33) 52%, rgb(94, 63, 17) 54%, rgb(87, 58, 14) 62%, rgb(201, 133, 23) 64%, rgb(102, 64, 3) 100%);
 	width: 100vw;
-	max-width: min(calc(100vw - 7rem), calc(100vh - 25rem), 50rem);
+	max-width: min(calc(100vw - 7rem), calc(100vh - 24rem), 50rem);
 	min-width: 7rem;
 	aspect-ratio: 1 / 1;
 }
