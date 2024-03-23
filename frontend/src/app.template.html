@@ -14,6 +14,15 @@
 				</template>
 			</cookies-p>
 		</div>
+
+		<div v-if="!win" style="display: grid; place-content: center">
+			<cookies-p>
+				Mouvements: {{ moveCount }}</cookies-p>
+				<cookies-button @click="clickBack">
+					<span style="font-size: 2rem"> Annuler </span>
+				</cookies-button>
+			
+		</div>
 	</cookies-panel>
 
 	<cookies-snackbar-dock></cookies-snackbar-dock>

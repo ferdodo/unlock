@@ -10,7 +10,8 @@ import { mouseUps$ } from "unlock/observables/mouse-ups";
 import { mouseMove$ } from "unlock/observables/mouse-move";
 import { isBlockIncluding } from "blockwise";
 import { isLatchMoveLegal } from "unlock/utils/is-latch-move-legal";
-import { incrementMoveCount } from "unlock/observables/move-count";
+import { incrementMoveCount, decrementMoveCount } from "unlock/observables/move-count";
+import { backClicks$ } from "unlock/observables/back-clicks";
 
 let currentPuzzle = generatePuzzle();
 
@@ -21,6 +22,41 @@ export const currentPuzzle$: Observable<Puzzle> = _currentPuzzle$.asObservable()
 export function getCurrentPuzzle(): Puzzle {
 	return currentPuzzle;
 }
+
+const puzzleHistory: Puzzle[] = [currentPuzzle];
+
+currentPuzzle$.subscribe(puzzle => puzzleHistory.push(puzzle));
+
+backClicks$.subscribe(function() {
+	if (puzzleHistory.length <= 1) {
+		return;
+	}
+
+	let last;
+	puzzleHistory.pop();
+	let moves = 0;
+
+	do {
+		last = puzzleHistory.pop();
+
+		if (last?.candidate || last?.latchIsMoved) {
+			moves++;
+		}
+		
+	} while (last?.candidate || last?.latchIsMoved);
+
+	if (last === undefined) {
+		return;
+	}
+
+	for (let i = 0; i <= moves - 2; i++) {
+		decrementMoveCount();
+	}
+
+	currentPuzzle = last;
+	_currentPuzzle$.next(last);
+});
+
 
 mouseClicks$.subscribe(function(position: Block) {
 	const bit = findBitByPosition(position);
