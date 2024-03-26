@@ -1,5 +1,5 @@
 import { win$ } from "unlock/observables/win";
-import { hexToBase64 } from "unlock/utils/hex-to-base-64";
+import { hexToBase64 } from "core";
 import { makeReplayGif } from "unlock/utils/make-replay-gif";
 import { Observable, concatMap, from, filter } from "rxjs";
 

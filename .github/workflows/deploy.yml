@@ -43,6 +43,12 @@ jobs:
           cargo test
           wasm-pack build --target web
 
+      - name: ❤️ Build Core
+        working-directory: ./core
+        run: |
+          npm install
+          npm run build
+
       - name: 🔧 Build Frontend 
         working-directory: ./frontend
         run: |

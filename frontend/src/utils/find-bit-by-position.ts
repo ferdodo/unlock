@@ -1,5 +1,5 @@
 import { Block, isBlockIncluding } from "blockwise";
-import { Bit } from "unlock/interfaces/bit";
+import { Bit } from "core";
 import { getCurrentPuzzle } from "unlock/observables/current-puzzle";
 
 export function findBitByPosition(position: Block): Bit | null {

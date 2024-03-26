@@ -1,5 +1,5 @@
 import { Block } from "blockwise";
-import { Bit } from "unlock/interfaces/bit";
+import { Bit } from "core";
 import { Latch } from "unlock/interfaces/latch";
 
 export interface Puzzle {

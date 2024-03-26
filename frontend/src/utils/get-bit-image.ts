@@ -1,4 +1,4 @@
-import { Bit } from "unlock/interfaces/bit";
+import { Bit } from "core";
 
 export function getBitImage(bit: Bit): string {
 	switch (bit.block.w) {

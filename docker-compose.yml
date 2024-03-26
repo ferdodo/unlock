@@ -1,4 +1,10 @@
 services:
+  core:
+    build:
+      context: core
+      tags:
+        - "unlock-core"
+
   frontend:
     build: frontend
     ports:

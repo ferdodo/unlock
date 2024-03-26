@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"target": "es2019",
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"baseUrl": ".",
+		"outDir": "dist",
+		"declaration": true,
+		"declarationDir": "dist",
+		"skipLibCheck": true
+	}
+}

@@ -1,0 +1,15 @@
+{
+	"name": "core",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc && vitest run && stryker run && dprint check"
+	},
+	"devDependencies": {
+		"@stryker-mutator/core": "^8.2.6",
+		"@stryker-mutator/vitest-runner": "^8.2.6",
+		"blockwise": "^2.0.0",
+		"dprint": "^0.45.0",
+		"typescript": "^5.4.3",
+		"vitest": "^1.4.0"
+	}
+}

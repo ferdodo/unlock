@@ -1,4 +1,4 @@
-import { Bit } from "unlock/interfaces/bit";
+import { Bit } from "core";
 import { Puzzle } from "unlock/interfaces/puzzle";
 import { getCurrentPuzzle } from "unlock/observables/current-puzzle";
 
