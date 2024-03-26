@@ -1,5 +1,5 @@
 import { currentPuzzleSmooth$ } from "unlock/observables/current-puzzle-smooth";
-import { Puzzle } from "unlock/interfaces/puzzle";
+import { Puzzle } from "core";
 import { saveEvent, replayEvents } from "loglore";
 import { uid } from "uid";
 import { throttleTime } from "rxjs";

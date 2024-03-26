@@ -1,7 +1,5 @@
 import { currentPuzzle$ } from "unlock/observables/current-puzzle";
-import { Puzzle } from "unlock/interfaces/puzzle";
-import { Bit } from "core";
-import { Latch } from "unlock/interfaces/latch";
+import { Bit, Latch, Puzzle } from "core";
 
 import {
 	Observable,

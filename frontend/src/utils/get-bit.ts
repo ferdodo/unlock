@@ -1,5 +1,4 @@
-import { Bit } from "core";
-import { Puzzle } from "unlock/interfaces/puzzle";
+import { Bit, Puzzle } from "core";
 import { getCurrentPuzzle } from "unlock/observables/current-puzzle";
 
 export function getBit(id: number): Bit {

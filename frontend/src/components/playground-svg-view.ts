@@ -1,6 +1,6 @@
 import { Ref, ref, defineComponent } from "vue";
 import { render } from "./playground-svg-view.template";
-import { Puzzle } from "unlock/interfaces/puzzle";
+import { Puzzle } from "core";
 import { currentPuzzleSmooth$ } from "unlock/observables/current-puzzle-smooth";
 import { getCurrentPuzzle } from "unlock/observables/current-puzzle";
 import { getBitImage } from "unlock/utils/get-bit-image";

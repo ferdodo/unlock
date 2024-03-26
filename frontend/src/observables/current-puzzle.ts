@@ -1,10 +1,9 @@
 import { Observable, Subject } from "rxjs";
-import { Puzzle } from "unlock/interfaces/puzzle";
 import { generatePuzzle } from "unlock/utils/generate-puzzle";
 import { mouseClicks$ } from "unlock/observables/mouse-clicks";
 import { findBitByPosition } from "unlock/utils/find-bit-by-position";
 import { Block, isBlockPositionEqual } from "blockwise";
-import { Bit } from "core";
+import { Bit, Puzzle } from "core";
 import { isBitMoveLegal } from "unlock/utils/is-bit-move-legal";
 import { mouseUps$ } from "unlock/observables/mouse-ups";
 import { mouseMove$ } from "unlock/observables/mouse-move";

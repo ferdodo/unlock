@@ -10,6 +10,9 @@
 		"outDir": "dist",
 		"declaration": true,
 		"declarationDir": "dist",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"paths": {
+			"core": ["src/index"]
+		}
 	}
 }

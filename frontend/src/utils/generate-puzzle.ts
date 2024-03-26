@@ -1,4 +1,4 @@
-import { Puzzle } from "unlock/interfaces/puzzle";
+import { Puzzle } from "core";
 import { generate_puzzle_json } from "puzzle-generator/pkg/unlock_puzzle_generator";
 
 export function generatePuzzle(): Puzzle {
