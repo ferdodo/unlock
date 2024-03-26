@@ -13,7 +13,7 @@ export function isBitMoveLegal(puzzle: Puzzle, candidate: Bit) {
 	}
 
 	if (isBlockColliding(puzzle.latch.block, candidate.block)) {
-		return false;	
+		return false;
 	}
 
 	return true;
