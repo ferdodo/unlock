@@ -12,9 +12,5 @@ export function isLatchMoveLegal(puzzle: Puzzle, movedBlock: Block): boolean {
 		return false;
 	}
 
-	if (!isBlockIncluding(puzzle.block, movedBlock)) {
-		return false;
-	}
-
 	return true;
 }

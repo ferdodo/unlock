@@ -1,7 +1,5 @@
 import { test, expect } from "vitest";
-import { isBitMoveLegal } from "./is-bit-move-legal";
-import { Puzzle } from "./types/puzzle";
-import { Bit } from "./types/bit";
+import { isBitMoveLegal, Puzzle, Bit } from "core";
 
 test("Shall be legal to move unregistered block into the puzzle", function() {
 	const puzzle: Puzzle = {

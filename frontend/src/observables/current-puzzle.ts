@@ -3,11 +3,10 @@ import { generatePuzzle } from "unlock/utils/generate-puzzle";
 import { mouseClicks$ } from "unlock/observables/mouse-clicks";
 import { findBitByPosition } from "unlock/utils/find-bit-by-position";
 import { Block, isBlockPositionEqual } from "blockwise";
-import { Bit, Puzzle, isBitMoveLegal } from "core";
+import { Bit, Puzzle, isBitMoveLegal, isLatchMoveLegal } from "core";
 import { mouseUps$ } from "unlock/observables/mouse-ups";
 import { mouseMove$ } from "unlock/observables/mouse-move";
 import { isBlockIncluding } from "blockwise";
-import { isLatchMoveLegal } from "unlock/utils/is-latch-move-legal";
 import { incrementMoveCount, decrementMoveCount } from "unlock/observables/move-count";
 import { backClicks$ } from "unlock/observables/back-clicks";
 
