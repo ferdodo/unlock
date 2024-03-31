@@ -1,7 +1,6 @@
 import { Observable, Subject } from "rxjs";
 import { generatePuzzle } from "unlock/utils/generate-puzzle";
 import { mouseClicks$ } from "unlock/observables/mouse-clicks";
-import { findBitByPosition } from "unlock/utils/find-bit-by-position";
 import { Block, isBlockPositionEqual } from "blockwise";
 import { Bit, Puzzle, isBitMoveLegal, isLatchMoveLegal } from "core";
 import { mouseUps$ } from "unlock/observables/mouse-ups";
@@ -56,7 +55,9 @@ backClicks$.subscribe(function() {
 
 
 mouseClicks$.subscribe(function(position: Block) {
-	const bit = findBitByPosition(position);
+	const bit = currentPuzzle.bits.find(function(b) {
+		return isBlockIncluding(b.block, position);
+	});
 
 	if (bit && !currentPuzzle.candidate) {
 		currentPuzzle = {
