@@ -4,8 +4,8 @@ import { mouseClicks$ } from "unlock/observables/mouse-clicks";
 import { Block, isBlockPositionEqual } from "blockwise";
 import { Bit, Puzzle, isBitMoveLegal, isLatchMoveLegal } from "core";
 import { mouseUps$ } from "unlock/observables/mouse-ups";
-import { mouseMove$ } from "unlock/observables/mouse-move";
-import { isBlockIncluding } from "blockwise";
+import { mousePosition$ } from "unlock/observables/mouse-position";
+import { isBlockIncluding, mapPositionsToUnitaryMovements } from "blockwise";
 import { incrementMoveCount, decrementMoveCount } from "unlock/observables/move-count";
 import { backClicks$ } from "unlock/observables/back-clicks";
 
@@ -118,7 +118,9 @@ mouseUps$.subscribe(function() {
 	}
 });
 
-mouseMove$.subscribe(function(position: Block) {
+mousePosition$.pipe(
+	mapPositionsToUnitaryMovements()
+).subscribe(function(position: Block) {
 	if (currentPuzzle.candidate === undefined) {
 		return;
 	}
@@ -156,7 +158,9 @@ mouseMove$.subscribe(function(position: Block) {
 })
 
 
-mouseMove$.subscribe(function(position: Block) {
+mousePosition$.pipe(
+	mapPositionsToUnitaryMovements()
+).subscribe(function(position: Block) {
 	if (!currentPuzzle.latchIsMoved) {
 		return;
 	}

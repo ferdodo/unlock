@@ -4,13 +4,13 @@
     "start": "vite --host"
   },
   "devDependencies": {
-    "blockwise": "^2.0.0",
+    "blockwise": "^2.2.0",
     "cookies-ds": "^1.4.0",
+    "core": "file:../core",
     "esbuild": "^0.17.19",
     "loglore": "^1.0.1",
     "pngs-to-gif": "file:../pngs-to-gif",
     "puzzle-generator": "file:../puzzle-generator",
-    "core": "file:../core",
     "rxjs": "^7.8.1",
     "seedrandom": "^3.0.5",
     "shelljs": "^0.8.5",
