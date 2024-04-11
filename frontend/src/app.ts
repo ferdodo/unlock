@@ -6,7 +6,7 @@ import { share } from "unlock/utils/share";
 import { disclaim } from "unlock/utils/disclaim";
 import { replayGifURL$ } from "unlock/observables/replay-gif-url";
 import { clickBack } from "unlock/observables/back-clicks";
-import { moveCount$ } from "unlock/observables/move-count"
+import { currentPuzzle$ } from "unlock/observables/current-puzzle";
 import "cookies-ds";
 
 export const app = createApp({
@@ -16,7 +16,7 @@ export const app = createApp({
 		const moveCount: Ref<number> = ref(0);
 		const gifUrl: Ref<string> = ref("");
 		win$.subscribe(value => win.value = value);
-		moveCount$.subscribe(value => moveCount.value = value);
+		currentPuzzle$.subscribe(puzzle => moveCount.value = puzzle.moveCount);
 		replayGifURL$.subscribe(value => gifUrl.value = value);
 		disclaim();
 		return { win, share, gifUrl, clickBack, moveCount };

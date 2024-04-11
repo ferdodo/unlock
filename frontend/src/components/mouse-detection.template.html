@@ -1,5 +1,7 @@
 <div
     @mousedown="clickMouseDetectionComponent"
+    @touchstart="() => console.log(`start ${ x } ${ y }`)"
+    @touchmove="() => console.log(`move ${ x } ${ y }`)"
     @mouseover="hoverMouseDetectionComponent"
     @contextmenu.prevent="rightClickDetectionComponent"
     :style="`grid-area: ${y}/${x}/${y+1}/${x+1}`">

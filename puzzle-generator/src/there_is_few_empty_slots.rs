@@ -41,6 +41,7 @@ mod tests {
             ],
             block: Block { x: 0, y: 0, w: 6, h: 6 },
             latch: Latch { block: Block { x: 0, y: 2, w: 2, h: 1 } },
+            moveCount: 0
         };
 
         assert_eq!(there_is_few_empty_slots(&puzzle), true);

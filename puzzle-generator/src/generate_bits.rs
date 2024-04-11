@@ -47,6 +47,7 @@ mod tests {
             bits: Vec::new(),
             latch: Latch { block: Block { x: 0, y: 2, w: 2, h: 1 } },
             block: Block { x: 0, y: 0, w: 6, h: 6 },
+            moveCount: 0
         };
 
         let bits = generate_bits(&puzzle);

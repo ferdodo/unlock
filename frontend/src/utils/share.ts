@@ -1,4 +1,4 @@
-import { getMoveCount } from "unlock/observables/move-count";
+import { getCurrentPuzzle } from "unlock/observables/current-puzzle";
 
 export function share() {
 	const date = new Date();
@@ -7,8 +7,8 @@ export function share() {
 	const day = ('0' + date.getDate()).slice(-2);
 	const formattedDate = `${year}/${month}/${day}`;
 	let text = `Unlock ${formattedDate}`;
-	const moveCount = getMoveCount();
-	text += `\n\nPuzzle réussi en ${ moveCount } mouvements.`
+	const puzzle = getCurrentPuzzle();
+	text += `\n\nPuzzle réussi en ${ puzzle.moveCount } mouvements.`
 	text += `\n\nhttps://ferdodo.github.io/unlock`;
 	navigator.clipboard.writeText(text);
 }

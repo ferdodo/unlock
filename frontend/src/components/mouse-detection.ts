@@ -20,7 +20,8 @@ export const MouseDetectionComponent = defineComponent({
             hoverMouseDetectionComponent: () => setMousePosition(position),
             rightClickDetectionComponent: () => emitMouseRightClick(position),
             x: props.x,
-            y: props.y
+            y: props.y,
+            console
         };
 	},
 	render

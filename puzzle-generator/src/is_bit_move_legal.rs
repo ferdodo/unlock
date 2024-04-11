@@ -36,6 +36,7 @@ mod tests {
             ],
             block: Block { x: 0, y: 0, w: 5, h: 5 },
             latch: Latch { block: Block { x: 3, y: 3, w: 1, h: 1 } },
+            moveCount: 0
         };
 
         let moved_block = Block { x: 4, y: 4, w: 1, h: 1 };

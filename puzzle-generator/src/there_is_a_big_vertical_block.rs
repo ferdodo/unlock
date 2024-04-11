@@ -27,6 +27,7 @@ mod tests {
                 Bit { id: 1, block: Block { x: 4, y: 0, w: 1, h: 2 } },
             ],
             block: Block { x: 0, y: 0, w: 6, h: 6 },
+            moveCount: 0
         };
 
         assert_eq!(there_is_a_big_vertical_block(&puzzle), true);

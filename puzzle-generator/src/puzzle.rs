@@ -7,5 +7,6 @@ use serde::{Serialize};
 pub struct Puzzle {
 	pub latch: Latch,
 	pub block: Block,
-	pub bits: Vec<Bit>
+	pub bits: Vec<Bit>,
+	pub moveCount: i32
 }
