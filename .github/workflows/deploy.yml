@@ -9,11 +9,6 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Setup Rust
-        uses: ATiltedTree/setup-rust@v1
-        with:
-          rust-version: stable
-
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
