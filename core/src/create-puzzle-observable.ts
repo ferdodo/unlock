@@ -1,6 +1,6 @@
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, mergeWith } from "rxjs";
 import { Block, isBlockIncluding, mapPositionsToUnitaryMovements } from "blockwise";
-import { Puzzle, UnlockContext, Bit, isBitMoveLegal, isLatchMoveLegal, PuzzleHistory } from "core";
+import { Puzzle, UnlockContext, Bit, isBitMoveLegal, isLatchMoveLegal, PuzzleHistory, mapPlaygroundTouchesToBitMoves } from "core";
 
 export function createPuzzleObservable(
 	context: UnlockContext
@@ -84,7 +84,12 @@ export function createPuzzleObservable(
 	});
 
 	context.mousePosition$.pipe(
-		mapPositionsToUnitaryMovements()
+		mapPositionsToUnitaryMovements(),
+		mergeWith(
+			context.playgroundTouch$.pipe(
+				mapPlaygroundTouchesToBitMoves(250)
+			)
+		)
 	).subscribe(function(position: Block) {
 		if (puzzle.candidate === undefined) {
 			return;
@@ -114,7 +119,12 @@ export function createPuzzleObservable(
 	});
 
 	context.mousePosition$.pipe(
-		mapPositionsToUnitaryMovements()
+		mapPositionsToUnitaryMovements(),
+		mergeWith(
+			context.playgroundTouch$.pipe(
+				mapPlaygroundTouchesToBitMoves(250)
+			)
+		)
 	).subscribe(function(position: Block) {
 		if (!puzzle.latchIsMoved) {
 			return;

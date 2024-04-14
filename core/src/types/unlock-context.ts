@@ -1,4 +1,4 @@
-import { Puzzle } from "core";
+import { Puzzle, TouchTracking } from "core";
 import { Block } from "blockwise";
 import { Observable } from "rxjs";
 
@@ -18,4 +18,5 @@ export interface UnlockContext {
 	mouseUps$: Observable<void>;
 	mousePosition$: Observable<Block>;
 	backClicks$: Observable<void>;
+	playgroundTouch$: Observable<TouchTracking>;
 }
