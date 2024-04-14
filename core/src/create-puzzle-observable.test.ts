@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { createPuzzleObservable, Puzzle, PuzzleFactory, ContextFactory } from "core";
+import { createPuzzleObservable, Puzzle, PuzzleFactory, ContextFactory, blockPixelSize } from "core";
 
 test("backClicks should revert puzzle to it's initial state", function() {
 	const puzzleFactory = new PuzzleFactory();
@@ -178,7 +178,7 @@ test("should move bit on playground touch", function() {
 			cordStartY: 1,
 			startX: 0,
 			startY: 0,
-			x: Math.floor(250 * 2.5),
+			x: Math.floor(blockPixelSize * 2.5),
 			y: 0
 		})
 		.emitMouseUp();
@@ -206,7 +206,7 @@ test("should move bit on playground touch", function() {
 			startX: 0,
 			startY: 0,
 			x: 0,
-			y: Math.floor(250 * 1.5)
+			y: Math.floor(blockPixelSize * 1.5)
 		})
 		.emitMouseUp();
 
@@ -233,7 +233,7 @@ test("should move bit on playground touch", function() {
 			startX: 0,
 			startY: 0,
 			x: 0,
-			y: -Math.floor(250 * 1.5)
+			y: -Math.floor(blockPixelSize * 1.5)
 		})
 		.emitMouseUp();
 
@@ -259,7 +259,7 @@ test("should move bit on playground touch", function() {
 			cordStartY: 2,
 			startX: 0,
 			startY: 0,
-			x: -Math.floor(250 * 1.5),
+			x: -Math.floor(blockPixelSize * 1.5),
 			y: 0
 		})
 		.emitMouseUp();
@@ -298,7 +298,7 @@ test("small playground touches shall not trigger moves", function() {
 			cordStartY: 1,
 			startX: 0,
 			startY: 0,
-			x: Math.floor(250 * 0.5),
+			x: Math.floor(blockPixelSize * 0.5),
 			y: 0
 		})
 		.emitMouseUp();
@@ -326,7 +326,7 @@ test("small playground touches shall not trigger moves", function() {
 			startX: 0,
 			startY: 0,
 			x: 0,
-			y: Math.floor(250 * 0.5)
+			y: Math.floor(blockPixelSize * 0.5)
 		})
 		.emitMouseUp();
 
@@ -353,7 +353,7 @@ test("small playground touches shall not trigger moves", function() {
 			startX: 0,
 			startY: 0,
 			x: 0,
-			y: -Math.floor(250 * 0.5)
+			y: -Math.floor(blockPixelSize * 0.5)
 		})
 		.emitMouseUp();
 
@@ -379,7 +379,7 @@ test("small playground touches shall not trigger moves", function() {
 			cordStartY: 2,
 			startX: 0,
 			startY: 0,
-			x: -Math.floor(250 * 0.5),
+			x: -Math.floor(blockPixelSize * 0.5),
 			y: 0
 		})
 		.emitMouseUp();

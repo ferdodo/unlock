@@ -1,4 +1,4 @@
-import { Observable, OperatorFunction, scan, filter, map } from "rxjs";
+import { Observable, OperatorFunction, scan, filter, map, distinctUntilChanged } from "rxjs";
 import { Block } from "blockwise";
 import { TouchTracking } from "core";
 
@@ -12,6 +12,8 @@ export function mapPlaygroundTouchesToBitMoves(
 	threshold: number
 ): OperatorFunction<TouchTracking, Block> {
 	return function(source: Observable<TouchTracking>) {
+		let lastValue = 0;
+
 		return source.pipe(
 			scan<TouchTracking, TouchTrackingScan, undefined>(
 				function(
@@ -80,7 +82,22 @@ export function mapPlaygroundTouchesToBitMoves(
 				undefined
 			),
 			map(v => v.moveDetected),
-			filter(Boolean)
+			filter(Boolean),
+			distinctUntilChanged(function(a, b) {
+				const now = Date.now();
+
+				if (lastValue + 250 < now) {
+					lastValue = now;
+					return false;
+				}
+
+				if (a.x !== b.x || a.y !== b.y) {
+					lastValue = now;
+					return false;
+				}
+
+				return true;
+			})
 		);
 	};
 }

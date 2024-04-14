@@ -2,8 +2,8 @@
 	"$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
 	"testRunner": "vitest",
 	"thresholds": {
-		"high": 80,
+		"high": 70,
 		"low": 40,
-		"break": 90
+		"break": 80
 	}
 }

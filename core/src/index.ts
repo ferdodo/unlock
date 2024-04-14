@@ -1,3 +1,4 @@
+export { blockPixelSize } from "./block-pixel-size";
 export { ContextFactory } from "./context-factory";
 export { createPuzzleObservable } from "./create-puzzle-observable";
 export { hexToBase64 } from "./hex-to-base64";
