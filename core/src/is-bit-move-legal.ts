@@ -1,4 +1,4 @@
-import { isBlockColliding, isBlockIncluding } from "blockwise";
+import { isBlockColliding, isBlockIncluding, isBlockEqual } from "blockwise";
 import { Bit, Puzzle } from "core";
 
 export function isBitMoveLegal(puzzle: Puzzle, candidate: Bit) {
@@ -8,6 +8,10 @@ export function isBitMoveLegal(puzzle: Puzzle, candidate: Bit) {
 
 	for (const bit of puzzle.bits) {
 		if (bit.id !== candidate.id && isBlockColliding(bit.block, candidate.block)) {
+			return false;
+		}
+
+		if (bit.id === candidate.id && isBlockEqual(bit.block, candidate.block)) {
 			return false;
 		}
 	}

@@ -11,9 +11,11 @@ interface TouchTrackingScan extends TouchTracking {
 export function mapPlaygroundTouchesToBitMoves(
 	threshold: number
 ): OperatorFunction<TouchTracking, Block> {
-	return function(source: Observable<TouchTracking>) {
-		let lastValue = 0;
+	let lastValue = Infinity;
+	let previousX = -99;
+	let previousY = -99;
 
+	return function(source: Observable<TouchTracking>) {
 		return source.pipe(
 			scan<TouchTracking, TouchTrackingScan, undefined>(
 				function(
@@ -88,11 +90,18 @@ export function mapPlaygroundTouchesToBitMoves(
 
 				if (lastValue + 250 < now) {
 					lastValue = now;
+					previousX = b.x;
+					previousY = b.y;
 					return false;
 				}
 
-				if (a.x !== b.x || a.y !== b.y) {
+				const differentMoveDirection = a.x !== b.x || a.y !== b.y;
+				const notReversing = b.x !== -previousX || b.y !== -previousY;
+
+				if (differentMoveDirection && notReversing) {
 					lastValue = now;
+					previousX = b.x;
+					previousY = b.y;
 					return false;
 				}
 

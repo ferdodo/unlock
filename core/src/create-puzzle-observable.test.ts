@@ -154,7 +154,7 @@ test("should not move latch on illegal move", function() {
 	subscription.unsubscribe();
 });
 
-test("should move bit on playground touch", function() {
+test("should move bit in right direction on playground touch", function() {
 	let puzzle = new PuzzleFactory()
 		.addBit({ x: 1, y: 1, w: 1, h: 1 })
 		.build();
@@ -191,53 +191,79 @@ test("should move bit on playground touch", function() {
 
 	expect(bit.block.x).toEqual(2);
 
+	subscription.unsubscribe();
+});
+
+test("should move bit in left direction on playground touch", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 1, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
+
 	contextFactory.emitPlaygroundTouch({
-		cordStartX: 2,
+		cordStartX: 1,
 		cordStartY: 1,
 		startX: 0,
 		startY: 0,
 		x: 0,
 		y: 0
 	})
-		.emitMouseClick({ x: 2, y: 1, w: 0, h: 0 })
+		.emitMouseClick({ x: 1, y: 1, w: 0, h: 0 })
 		.emitPlaygroundTouch({
-			cordStartX: 2,
+			cordStartX: 1,
 			cordStartY: 1,
 			startX: 0,
 			startY: 0,
-			x: 0,
-			y: Math.floor(blockPixelSize * 1.5)
+			x: Math.floor(-blockPixelSize * 2.5),
+			y: 0
 		})
 		.emitMouseUp();
 
-	bit = puzzle.bits.find(bit => bit.id === 0);
+	let bit = puzzle.bits.find(bit => bit.id === 0);
 
 	if (bit === undefined) {
 		throw new Error("Bit is undefined !");
 	}
 
-	expect(bit.block.y).toEqual(2);
+	expect(bit.block.x).toEqual(0);
+
+	subscription.unsubscribe();
+});
+
+test("should move bit in down direction on playground touch", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 0, y: 0, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
 
 	contextFactory.emitPlaygroundTouch({
-		cordStartX: 2,
-		cordStartY: 2,
+		cordStartX: 0,
+		cordStartY: 0,
 		startX: 0,
 		startY: 0,
 		x: 0,
 		y: 0
 	})
-		.emitMouseClick({ x: 2, y: 2, w: 0, h: 0 })
+		.emitMouseClick({ x: 0, y: 0, w: 0, h: 0 })
 		.emitPlaygroundTouch({
-			cordStartX: 2,
-			cordStartY: 2,
+			cordStartX: 0,
+			cordStartY: 0,
 			startX: 0,
 			startY: 0,
 			x: 0,
-			y: -Math.floor(blockPixelSize * 1.5)
+			y: Math.floor(blockPixelSize * 2.5)
 		})
 		.emitMouseUp();
 
-	bit = puzzle.bits.find(bit => bit.id === 0);
+	let bit = puzzle.bits.find(bit => bit.id === 0);
 
 	if (bit === undefined) {
 		throw new Error("Bit is undefined !");
@@ -245,36 +271,50 @@ test("should move bit on playground touch", function() {
 
 	expect(bit.block.y).toEqual(1);
 
+	subscription.unsubscribe();
+});
+
+test("should move bit in up direction on playground touch", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 1, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
+
 	contextFactory.emitPlaygroundTouch({
-		cordStartX: 2,
-		cordStartY: 2,
+		cordStartX: 1,
+		cordStartY: 1,
 		startX: 0,
 		startY: 0,
 		x: 0,
 		y: 0
 	})
-		.emitMouseClick({ x: 2, y: 2, w: 0, h: 0 })
+		.emitMouseClick({ x: 1, y: 1, w: 0, h: 0 })
 		.emitPlaygroundTouch({
-			cordStartX: 2,
-			cordStartY: 2,
+			cordStartX: 1,
+			cordStartY: 1,
 			startX: 0,
 			startY: 0,
-			x: -Math.floor(blockPixelSize * 1.5),
-			y: 0
+			x: 0,
+			y: Math.floor(-blockPixelSize * 2.5)
 		})
 		.emitMouseUp();
 
-	bit = puzzle.bits.find(bit => bit.id === 0);
+	let bit = puzzle.bits.find(bit => bit.id === 0);
 
 	if (bit === undefined) {
 		throw new Error("Bit is undefined !");
 	}
 
-	expect(bit.block.x).toEqual(1);
+	expect(bit.block.y).toEqual(0);
+
 	subscription.unsubscribe();
 });
 
-test("small playground touches shall not trigger moves", function() {
+test("small playground touches in right direction shall not trigger moves", function() {
 	let puzzle = new PuzzleFactory()
 		.addBit({ x: 1, y: 1, w: 1, h: 1 })
 		.build();
@@ -310,19 +350,109 @@ test("small playground touches shall not trigger moves", function() {
 	}
 
 	expect(bit.block.x).toEqual(1);
+	subscription.unsubscribe();
+});
+
+test("small playground touches in left direction shall not trigger moves", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 1, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
 
 	contextFactory.emitPlaygroundTouch({
-		cordStartX: 2,
+		cordStartX: 1,
 		cordStartY: 1,
 		startX: 0,
 		startY: 0,
 		x: 0,
 		y: 0
 	})
-		.emitMouseClick({ x: 2, y: 1, w: 0, h: 0 })
+		.emitMouseClick({ x: 1, y: 1, w: 0, h: 0 })
 		.emitPlaygroundTouch({
-			cordStartX: 2,
+			cordStartX: 1,
 			cordStartY: 1,
+			startX: 0,
+			startY: 0,
+			x: Math.floor(-blockPixelSize * 0.5),
+			y: 0
+		})
+		.emitMouseUp();
+
+	let bit = puzzle.bits.find(bit => bit.id === 0);
+
+	if (bit === undefined) {
+		throw new Error("Bit is undefined !");
+	}
+
+	expect(bit.block.x).toEqual(1);
+	subscription.unsubscribe();
+});
+
+test("small playground touches in up direction shall not trigger moves", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 1, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
+
+	contextFactory.emitPlaygroundTouch({
+		cordStartX: 1,
+		cordStartY: 1,
+		startX: 0,
+		startY: 0,
+		x: 0,
+		y: 0
+	})
+		.emitMouseClick({ x: 1, y: 1, w: 0, h: 0 })
+		.emitPlaygroundTouch({
+			cordStartX: 1,
+			cordStartY: 1,
+			startX: 0,
+			startY: 0,
+			x: 0,
+			y: Math.floor(-blockPixelSize * 0.5)
+		})
+		.emitMouseUp();
+
+	let bit = puzzle.bits.find(bit => bit.id === 0);
+
+	if (bit === undefined) {
+		throw new Error("Bit is undefined !");
+	}
+
+	expect(bit.block.y).toEqual(1);
+	subscription.unsubscribe();
+});
+
+test("small playground touches in down direction shall not trigger moves", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 0, y: 0, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
+
+	contextFactory.emitPlaygroundTouch({
+		cordStartX: 0,
+		cordStartY: 0,
+		startX: 0,
+		startY: 0,
+		x: 0,
+		y: 0
+	})
+		.emitMouseClick({ x: 0, y: 0, w: 0, h: 0 })
+		.emitPlaygroundTouch({
+			cordStartX: 0,
+			cordStartY: 0,
 			startX: 0,
 			startY: 0,
 			x: 0,
@@ -330,66 +460,108 @@ test("small playground touches shall not trigger moves", function() {
 		})
 		.emitMouseUp();
 
-	bit = puzzle.bits.find(bit => bit.id === 0);
+	let bit = puzzle.bits.find(bit => bit.id === 0);
 
 	if (bit === undefined) {
 		throw new Error("Bit is undefined !");
 	}
 
-	expect(bit.block.y).toEqual(1);
+	expect(bit.block.y).toEqual(0);
+	subscription.unsubscribe();
+});
+
+test("should prevent to do a quick reverting move", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 1, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
 
 	contextFactory.emitPlaygroundTouch({
-		cordStartX: 2,
-		cordStartY: 2,
+		cordStartX: 1,
+		cordStartY: 1,
 		startX: 0,
 		startY: 0,
 		x: 0,
 		y: 0
 	})
-		.emitMouseClick({ x: 2, y: 2, w: 0, h: 0 })
+		.emitMouseClick({ x: 1, y: 1, w: 0, h: 0 })
 		.emitPlaygroundTouch({
-			cordStartX: 2,
-			cordStartY: 2,
+			cordStartX: 1,
+			cordStartY: 1,
 			startX: 0,
 			startY: 0,
-			x: 0,
-			y: -Math.floor(blockPixelSize * 0.5)
+			x: Math.floor(blockPixelSize * 2.5),
+			y: 0
 		})
-		.emitMouseUp();
-
-	bit = puzzle.bits.find(bit => bit.id === 0);
-
-	if (bit === undefined) {
-		throw new Error("Bit is undefined !");
-	}
-
-	expect(bit.block.y).toEqual(1);
-
-	contextFactory.emitPlaygroundTouch({
-		cordStartX: 2,
-		cordStartY: 2,
-		startX: 0,
-		startY: 0,
-		x: 0,
-		y: 0
-	})
-		.emitMouseClick({ x: 2, y: 2, w: 0, h: 0 })
 		.emitPlaygroundTouch({
-			cordStartX: 2,
-			cordStartY: 2,
+			cordStartX: 1,
+			cordStartY: 1,
 			startX: 0,
 			startY: 0,
-			x: -Math.floor(blockPixelSize * 0.5),
+			x: Math.floor(-blockPixelSize * 2.5),
 			y: 0
 		})
 		.emitMouseUp();
 
-	bit = puzzle.bits.find(bit => bit.id === 0);
+	let bit = puzzle.bits.find(bit => bit.id === 0);
 
 	if (bit === undefined) {
 		throw new Error("Bit is undefined !");
 	}
 
-	expect(bit.block.x).toEqual(1);
+	expect(bit.block.x).toEqual(2);
+
+	subscription.unsubscribe();
+});
+
+test("should prevent to do quickly the same move", function() {
+	let puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 1, w: 1, h: 1 })
+		.build();
+
+	const contextFactory = new ContextFactory(puzzle);
+	const context = contextFactory.build();
+	const puzzleObservable = createPuzzleObservable(context);
+	const subscription = puzzleObservable.subscribe(value => puzzle = value);
+
+	contextFactory.emitPlaygroundTouch({
+		cordStartX: 1,
+		cordStartY: 1,
+		startX: 0,
+		startY: 0,
+		x: 0,
+		y: 0
+	})
+		.emitMouseClick({ x: 1, y: 1, w: 0, h: 0 })
+		.emitPlaygroundTouch({
+			cordStartX: 1,
+			cordStartY: 1,
+			startX: 0,
+			startY: 0,
+			x: Math.floor(blockPixelSize * 2.5),
+			y: 0
+		})
+		.emitPlaygroundTouch({
+			cordStartX: 1,
+			cordStartY: 1,
+			startX: 0,
+			startY: 0,
+			x: Math.floor(blockPixelSize * 4.5),
+			y: 0
+		})
+		.emitMouseUp();
+
+	let bit = puzzle.bits.find(bit => bit.id === 0);
+
+	if (bit === undefined) {
+		throw new Error("Bit is undefined !");
+	}
+
+	expect(bit.block.x).toEqual(2);
+
 	subscription.unsubscribe();
 });

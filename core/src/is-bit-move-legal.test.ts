@@ -75,3 +75,23 @@ test("Shall be legal for block to collides its old position", function() {
 	const legal = isBitMoveLegal(puzzle, bit);
 	expect(legal).toBeTruthy();
 });
+
+test("Shall be illegal for block to move into it's old position", function() {
+	const puzzle: Puzzle = new PuzzleFactory()
+		.addBit({ x: 1, y: 0, w: 2, h: 1 })
+		.addBit({ x: 2, y: 5, w: 1, h: 2 })
+		.build();
+
+	const bit: Bit = {
+		id: 0,
+		block: {
+			x: 1,
+			y: 0,
+			w: 2,
+			h: 1
+		}
+	};
+
+	const legal = isBitMoveLegal(puzzle, bit);
+	expect(legal).toBeFalsy();
+});
