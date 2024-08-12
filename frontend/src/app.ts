@@ -15,7 +15,18 @@ export const app = createApp({
 		const win: Ref<boolean> = ref(false);
 		const moveCount: Ref<number> = ref(0);
 		const gifUrl: Ref<string> = ref("");
-		win$.subscribe(value => win.value = value);
+
+		win$.subscribe(value => {
+			win.value = value;
+
+			//@ts-ignore
+			if (value && window.opener?.registerScore) {
+				//@ts-ignore
+				window.opener.registerScore("unlock", matchCount);
+				window.close();
+			}
+		});
+
 		currentPuzzle$.subscribe(puzzle => moveCount.value = puzzle.moveCount);
 		replayGifURL$.subscribe(value => gifUrl.value = value);
 		disclaim();
