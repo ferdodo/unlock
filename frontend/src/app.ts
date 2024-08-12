@@ -22,7 +22,7 @@ export const app = createApp({
 			//@ts-ignore
 			if (value && window.opener?.registerScore) {
 				//@ts-ignore
-				window.opener.registerScore("unlock", matchCount);
+				window.opener.registerScore("unlock", moveCount.value);
 				window.close();
 			}
 		});
