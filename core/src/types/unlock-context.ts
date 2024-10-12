@@ -1,4 +1,4 @@
-import { Puzzle, TouchTracking } from "core";
+import { Puzzle, TouchTracking } from "..";
 import { Block } from "blockwise";
 import { Observable } from "rxjs";
 

@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { isBitMoveLegal, Puzzle, Bit, PuzzleFactory } from "core";
+import { isBitMoveLegal, Puzzle, Bit, PuzzleFactory } from ".";
 
 test("Shall be illegal to move outside the puzzle", function() {
 	const puzzle: Puzzle = new PuzzleFactory()

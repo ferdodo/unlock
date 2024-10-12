@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { createPuzzleObservable, Puzzle, PuzzleFactory, ContextFactory, blockPixelSize } from "core";
+import { createPuzzleObservable, Puzzle, PuzzleFactory, ContextFactory, blockPixelSize } from ".";
 
 test("backClicks should revert puzzle to it's initial state", function() {
 	const puzzleFactory = new PuzzleFactory();

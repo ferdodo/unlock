@@ -1,5 +1,5 @@
 import { Subject } from "rxjs";
-import { UnlockContext, Puzzle, TouchTracking } from "core";
+import { UnlockContext, Puzzle, TouchTracking } from ".";
 import { Block } from "blockwise";
 
 export class ContextFactory {

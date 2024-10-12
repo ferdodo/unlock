@@ -1,5 +1,5 @@
 import { Block, isBlockIncluding, isBlockColliding } from "blockwise";
-import { Puzzle } from "core";
+import { Puzzle } from ".";
 
 export function isLatchMoveLegal(puzzle: Puzzle, movedBlock: Block): boolean {
 	if (puzzle.bits.some(b => isBlockColliding(b.block, movedBlock))) {

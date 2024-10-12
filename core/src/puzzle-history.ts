@@ -1,4 +1,4 @@
-import { Puzzle } from "core";
+import { Puzzle } from ".";
 
 export class PuzzleHistory {
 	history: Puzzle[] = [];

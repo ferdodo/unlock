@@ -8,7 +8,7 @@
     "cookies-ds": "^1.4.0",
     "core": "file:../core",
     "esbuild": "^0.17.19",
-    "loglore": "^1.0.1",
+    "loglore": "^1.1.0",
     "pngs-to-gif": "file:../pngs-to-gif",
     "puzzle-generator": "file:../puzzle-generator",
     "rxjs": "^7.8.1",

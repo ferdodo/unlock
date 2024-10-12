@@ -1,6 +1,6 @@
 import { Observable, OperatorFunction, scan, filter, map, distinctUntilChanged } from "rxjs";
 import { Block } from "blockwise";
-import { TouchTracking } from "core";
+import { TouchTracking } from ".";
 
 interface TouchTrackingScan extends TouchTracking {
 	lastX: number;

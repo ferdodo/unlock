@@ -1,6 +1,6 @@
 import { currentPuzzleSmooth$ } from "unlock/observables/current-puzzle-smooth";
 import { Puzzle } from "core";
-import { saveEvent, replayEvents } from "loglore";
+import { saveEvent, replayEvents, clearDatabase } from "loglore";
 import { uid } from "uid";
 import { throttleTime } from "rxjs";
 
@@ -10,6 +10,8 @@ interface PuzzleReplayEvent {
 	id: string;
 	puzzle: Puzzle;
 }
+
+clearDatabase().catch(console.error);
 
 currentPuzzleSmooth$
 	.pipe(

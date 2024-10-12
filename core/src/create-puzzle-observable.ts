@@ -1,6 +1,6 @@
 import { Observable, Subject, mergeWith } from "rxjs";
 import { Block, isBlockIncluding, mapPositionsToUnitaryMovements } from "blockwise";
-import { Puzzle, UnlockContext, Bit, isBitMoveLegal, isLatchMoveLegal, PuzzleHistory, mapPlaygroundTouchesToBitMoves, blockPixelSize } from "core";
+import { Puzzle, UnlockContext, Bit, isBitMoveLegal, isLatchMoveLegal, PuzzleHistory, mapPlaygroundTouchesToBitMoves, blockPixelSize } from ".";
 
 export function createPuzzleObservable(
 	context: UnlockContext

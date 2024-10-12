@@ -1,5 +1,5 @@
 import { isBlockColliding, isBlockIncluding, isBlockEqual } from "blockwise";
-import { Bit, Puzzle } from "core";
+import { Bit, Puzzle } from ".";
 
 export function isBitMoveLegal(puzzle: Puzzle, candidate: Bit) {
 	if (!isBlockIncluding(puzzle.block, candidate.block)) {

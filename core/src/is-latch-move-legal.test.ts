@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { isLatchMoveLegal, Puzzle, PuzzleFactory } from "core";
+import { isLatchMoveLegal, Puzzle, PuzzleFactory } from ".";
 import { Block } from "blockwise";
 
 test("Shall be legal to move latch to it's old position", function() {

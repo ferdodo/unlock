@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { PuzzleHistory, PuzzleFactory } from "core";
+import { PuzzleHistory, PuzzleFactory } from ".";
 
 test("should rewind state to previous", function() {
 	const puzzle = new PuzzleFactory().build();

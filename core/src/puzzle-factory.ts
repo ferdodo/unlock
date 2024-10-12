@@ -1,4 +1,4 @@
-import { Puzzle } from "core";
+import { Puzzle } from ".";
 import { Block } from "blockwise";
 
 export class PuzzleFactory {
