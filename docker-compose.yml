@@ -9,6 +9,11 @@ services:
     build: frontend
     ports:
       - "127.0.0.1:4477:5173"
+    depends_on:
+      - core
+      - puzzle-generator
+      - svg-to-png
+      - pngs-to-gif
 
   puzzle-generator:
     build:
