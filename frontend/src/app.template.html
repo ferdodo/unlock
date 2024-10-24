@@ -9,7 +9,8 @@
 				🎉 C'est gagné pour aujourd'hui ! 🥳 <br>
 
 				<template v-if="gifUrl">
-					<cookies-button @click="share()" title="Copier dans le presse-papier"> Partager </cookies-button>
+					<cookies-button @click="share()" title="Copier dans le presse-papier"> Partager avec le score </cookies-button>
+					<cookies-button @click="scorelessShare()" title="Copier dans le presse-papier"> Partager </cookies-button>
 					<img :src="gifUrl" style="display: inline;">
 				</template>
 			</cookies-p>

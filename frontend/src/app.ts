@@ -7,6 +7,7 @@ import { disclaim } from "unlock/utils/disclaim";
 import { replayGifURL$ } from "unlock/observables/replay-gif-url";
 import { clickBack } from "unlock/observables/back-clicks";
 import { currentPuzzle$ } from "unlock/observables/current-puzzle";
+import { scorelessShare } from "./utils/scoreless-share";
 import "cookies-ds";
 
 export const app = createApp({
@@ -30,7 +31,7 @@ export const app = createApp({
 		currentPuzzle$.subscribe(puzzle => moveCount.value = puzzle.moveCount);
 		replayGifURL$.subscribe(value => gifUrl.value = value);
 		disclaim();
-		return { win, share, gifUrl, clickBack, moveCount };
+		return { win, share, gifUrl, clickBack, moveCount, scorelessShare };
 	},
 	render
 });
