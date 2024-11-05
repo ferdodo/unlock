@@ -5,8 +5,8 @@
   },
   "devDependencies": {
     "blockwise": "^2.2.0",
-    "cookies-ds": "^1.4.0",
     "core": "file:../core",
+    "crumbs-design-system": "^1.2.2",
     "esbuild": "^0.17.19",
     "loglore": "^1.1.0",
     "pngs-to-gif": "file:../pngs-to-gif",

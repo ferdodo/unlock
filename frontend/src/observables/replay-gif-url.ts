@@ -1,10 +1,11 @@
 import { win$ } from "unlock/observables/win";
 import { hexToBase64 } from "core";
 import { makeReplayGif } from "unlock/utils/make-replay-gif";
-import { Observable, concatMap, from, filter } from "rxjs";
+import { Observable, debounceTime, concatMap, from, filter } from "rxjs";
 
 export const replayGifURL$: Observable<string> = win$.pipe(
 	filter(win => win),
+	debounceTime(50),
 	concatMap(
 		() => from(
 			makeReplayGif()

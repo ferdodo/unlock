@@ -1,30 +1,49 @@
 <div class="app-container">
-	<cookies-panel panel-title="Unlock">
-		<cookies-p> Déplacez le bloc orange à droite de l'écran. </cookies-p>
+	<crumbs-panel panel-title="Unlock">
+		<crumbs-p> Déplacez le bloc orange à droite de l'écran. </crumbs-p>
 
 		<playground></playground>
 
 		<div v-if="win">
-			<cookies-p style="text-align:center">
+			<crumbs-p style="text-align:center">
 				🎉 C'est gagné pour aujourd'hui ! 🥳 <br>
 
-				<template v-if="gifUrl">
-					<cookies-button @click="share()" title="Copier dans le presse-papier"> Partager avec le score </cookies-button>
-					<cookies-button @click="scorelessShare()" title="Copier dans le presse-papier"> Partager </cookies-button>
-					<img :src="gifUrl" style="display: inline;">
+				<crumbs-button
+					v-if="!indeterminedProgressDone"
+					@click="showGif()"
+					:indeterminate-progress="indeterminedProgress"
+					:indeterminate-duration-ms="indeterminedDuration"
+					title="Copier dans le presse-papier">
+					Afficher le gif
+				</crumbs-button>		
+
+				<template v-if="gifUrl && indeterminedProgressDone">
+					<div style="display: flex; justify-content: center; align-items: center;">
+						<crumbs-button
+							@click="share()"
+							title="Copier dans le presse-papier">
+							Partager avec le score
+						</crumbs-button>
+
+						<crumbs-button
+							@click="scorelessShare()"
+							title="Copier dans le presse-papier">
+							Partager
+						</crumbs-button>
+
+						<img :src="gifUrl" style="display: inline;">
+					</div>
 				</template>
-			</cookies-p>
+			</crumbs-p>
 		</div>
 
 		<div v-if="!win" style="display: grid; place-content: center">
-			<cookies-p>
-				Mouvements: {{ moveCount }}</cookies-p>
-				<cookies-button @click="clickBack">
+			<crumbs-p>
+				Mouvements: {{ moveCount }}</crumbs-p>
+				<crumbs-button @click="clickBack">
 					<span style="font-size: 2rem"> Annuler </span>
-				</cookies-button>
+				</crumbs-button>
 			
 		</div>
-	</cookies-panel>
-
-	<cookies-snackbar-dock></cookies-snackbar-dock>
+	</crumbs-panel>
 </div>

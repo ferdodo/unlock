@@ -12,6 +12,7 @@ interface PuzzleReplayEvent {
 }
 
 clearDatabase().catch(console.error);
+let eventCount = 0;
 
 currentPuzzleSmooth$
 	.pipe(
@@ -19,6 +20,7 @@ currentPuzzleSmooth$
 	)
 	.subscribe(function(puzzle) {
 		saveEvent({ id, puzzle });
+		eventCount++;
 	});
 
 export async function * replayPuzzle(): AsyncGenerator<Puzzle> {
@@ -27,4 +29,8 @@ export async function * replayPuzzle(): AsyncGenerator<Puzzle> {
 			yield event.puzzle;
 		}
 	}
+}
+
+export function getEventCount(): number {
+	return eventCount;
 }

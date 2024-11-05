@@ -8,7 +8,8 @@ import { replayGifURL$ } from "unlock/observables/replay-gif-url";
 import { clickBack } from "unlock/observables/back-clicks";
 import { currentPuzzle$ } from "unlock/observables/current-puzzle";
 import { scorelessShare } from "./utils/scoreless-share";
-import "cookies-ds";
+import "crumbs-design-system";
+import { getEventCount } from "./stores/puzzle-replay";
 
 export const app = createApp({
 	components: { Playground },
@@ -16,9 +17,14 @@ export const app = createApp({
 		const win: Ref<boolean> = ref(false);
 		const moveCount: Ref<number> = ref(0);
 		const gifUrl: Ref<string> = ref("");
+		const indeterminedDuration: Ref<number| null> = ref(null);
+		const indeterminedProgress: Ref<boolean | null> = ref(null);
+		const indeterminedProgressDone: Ref<boolean> = ref(false);
 
 		win$.subscribe(value => {
 			win.value = value;
+			indeterminedDuration.value = Math.max(0, getEventCount() * 4);
+			indeterminedProgress.value = true;
 
 			//@ts-ignore
 			if (value && window.opener?.registerScore) {
@@ -28,10 +34,32 @@ export const app = createApp({
 			}
 		});
 
+
+		function showGif() {
+			indeterminedProgressDone.value = true;
+		}
+
 		currentPuzzle$.subscribe(puzzle => moveCount.value = puzzle.moveCount);
-		replayGifURL$.subscribe(value => gifUrl.value = value);
+
+		replayGifURL$.subscribe(value => {
+			gifUrl.value = value;
+			indeterminedProgress.value = null;
+		});
+
 		disclaim();
-		return { win, share, gifUrl, clickBack, moveCount, scorelessShare };
+
+		return {
+			win,
+			share,
+			showGif,
+			gifUrl,
+			clickBack,
+			moveCount,
+			scorelessShare,
+			indeterminedDuration,
+			indeterminedProgress,
+			indeterminedProgressDone
+		};
 	},
 	render
 });
